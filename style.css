@@ -1,55 +1,64 @@
 /* #00B2CA */
-#main__window,#new__user__window{
-    background-color: #031d35;
-    font-size: 20px;
-    font-weight: 600;
-    color: white;
+#main__window,
+#new__user__window {
+  background-color: #031d35;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
 }
-#users__vbox{
-    background-color: #112131;
-    border-radius: 2%;
+
+#users__vbox {
+  background-color: #112131;
+  border-radius: 2%;
 }
-#new__user__inputs__vbox{
-    padding-top: 240px;
-    background-color: #112131;
-    border-radius: 2%;
+
+#new__user__inputs__vbox {
+  padding-top: 240px;
+  background-color: #112131;
+  border-radius: 2%;
 }
-#add__user__button,#new__user__back,#new__user__submit{
-    background-image: none;
-    background-color: #0777d3;
-    border: none;
-    color: black;
+
+#add__user__button,
+#new__user__back,
+#new__user__submit {
+  background-image: none;
+  background-color: #0777d3;
+  border: none;
+  color: black;
 }
+
 #add__user__button:hover,
 #new__user__back:hover,
-#new__user__submit:hover{
-    color: black;
-    animation: toWhite 2s ease forwards;
-}
-#quit__button{
-    background-color: rgb(218, 42, 42);
-    background-image: none;
-    border: none;
-    color: black;
-}
-#quit__button:hover{
-    /* color: white; */
-    animation: toRed 2s ease forwards;
+#new__user__submit:hover {
+  color: black;
+  animation: toWhite 2s ease forwards;
 }
 
-.btn-danger{
-    background-color: green;
-    background-image: none;
+#quit__button {
+  background-color: rgb(218, 42, 42);
+  background-image: none;
+  border: none;
+  color: black;
 }
 
-@keyframes toWhite{
-    To{
-        background-color: white;
-    }
+#quit__button:hover {
+  /* color: white; */
+  animation: toRed 2s ease forwards;
 }
-@keyframes toRed{
-    To {
-        background-color: rgb(255, 0, 0);
-        color: white;
-    }
+
+.btn-danger {
+  background-color: green;
+  background-image: none;
 }
+
+@keyframes toWhite {
+  to {
+    background-color: white;
+  }
+}
+@keyframes toRed {
+  to {
+    background-color: rgb(255, 0, 0);
+    color: white;
+  }
+}/*# sourceMappingURL=style.css.map */

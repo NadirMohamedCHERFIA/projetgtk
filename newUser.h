@@ -7,9 +7,17 @@
 #include "widgets.h"
 #include "newUserController.h"
 
-void create_new_user(GtkWidget *butt,gpointer data){
-    MainWindow *App;
+void submitTest(GtkWidget *butt, gpointer data){
+    MainWindow* myApp=(MainWindow*) data;
+    // gtk_label_set_markup(GTK_LABEL(myApp->new_user_password_label),"CHANGED");
+    gtk_window_set_title(GTK_WINDOW(myApp->new_user_window),"CHANGED");
+}
 
+
+void create_new_user(GtkWidget *butt,gpointer* data){
+    MainWindow *App;
+    App=(MainWindow*)data;
+    // gtk_label_set_markup(GT)
     // ?new user window
     App->new_user_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(App->new_user_window),"Create new user");
@@ -66,7 +74,7 @@ void create_new_user(GtkWidget *butt,gpointer data){
     //?new user submit button
     App->new_user_submit = gtk_button_new_with_label("Submit");
     gtk_box_pack_start(GTK_BOX(App->new_user_vbox_buttons),App->new_user_submit,FALSE,FALSE,0);
-    g_signal_connect(G_OBJECT(App->new_user_submit),"clicked",G_CALLBACK(handleNewUserSubmit),(gpointer) App);
+    g_signal_connect(G_OBJECT(App->new_user_submit),"clicked",G_CALLBACK(handleNewUserSubmit),(gpointer)App);
     gtk_widget_set_name(App->new_user_submit,"new__user__submit");
     gtk_widget_set_size_request(App->new_user_submit, 200, 50);
 
@@ -74,7 +82,7 @@ void create_new_user(GtkWidget *butt,gpointer data){
     App->new_user_back = gtk_button_new_with_label("Back");
     gtk_box_pack_start(GTK_BOX(App->new_user_vbox_buttons), App->new_user_back, FALSE, TRUE, 0);
     gtk_widget_set_size_request(App->new_user_back, 400, 50);
-    g_signal_connect(G_OBJECT(App->new_user_back),"clicked",G_CALLBACK(handleBack),(gpointer) App);
+    g_signal_connect(G_OBJECT(App->new_user_back),"clicked",G_CALLBACK(handleBack),(gpointer)App);
     gtk_widget_set_name(App->new_user_back, "new__user__back");
 
     gtk_widget_show_all(App->new_user_window);

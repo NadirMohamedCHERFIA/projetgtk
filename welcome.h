@@ -3,8 +3,8 @@
 #include "newUser.h"
 
 int welcome_window(int argc ,char *argv[]){
-    MainWindow *App;
     const gchar *const WELCOMEWINDOWTITLE ="GESTION DE DEPENSES";
+    MainWindow *App;
     App = g_malloc(sizeof(MainWindow));
     gtk_init(&argc,&argv);
     load_css();
@@ -41,7 +41,7 @@ int welcome_window(int argc ,char *argv[]){
     App->welcome_new_user_button = gtk_button_new_with_label("Ajouet un nouveau utilisateur");
     gtk_box_pack_start(GTK_BOX(App->welcome_vbox_buttons),App->welcome_new_user_button,FALSE,TRUE,40);
     gtk_widget_set_name(App->welcome_new_user_button,"add__user__button");
-    g_signal_connect(G_OBJECT(App->welcome_new_user_button),"clicked",G_CALLBACK(create_new_user),NULL);
+    g_signal_connect(G_OBJECT(App->welcome_new_user_button),"clicked",G_CALLBACK(create_new_user),(gpointer)App);
     gtk_widget_set_size_request(App->welcome_new_user_button,200,50);
 
     //?welcome quit
