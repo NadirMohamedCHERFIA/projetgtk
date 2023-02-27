@@ -46,9 +46,8 @@
     animation: toRed 2s ease forwards;
 }
 
-.btn-danger {
-    background-color: green;
-    background-image: none;
+#description_hbox{
+    font-size: 2rem;
 }
 
 @keyframes toWhite {

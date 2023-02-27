@@ -4,7 +4,12 @@
 #include "widgets.h"
 #include "style.h"
 int main(int argc, char *argv[]){
-    welcome_window(argc,argv);
+    MainWindow *App;
+    App = g_malloc(sizeof(MainWindow));
+    gtk_init(&argc, &argv);
+
+    load_css();
+    welcome_window((gpointer)App);
     gtk_main();
     return 0;
 }
