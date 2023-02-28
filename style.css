@@ -67,7 +67,7 @@
 }
 #users_vbox>*{
   padding-left: 580;
-  background-color: gold;
+  background-color: rgb(0, 140, 255);
 }
 
 #description_hbox {
