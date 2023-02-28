@@ -1,14 +1,48 @@
 #include <gtk/gtk.h>
+#include "string.h"
 #ifndef __CONTAINER_H__
 #define __CONTAINER_H__
 struct _MainWindow
 {   
     int numberOfUsers;
 
-    // GtkWidget *user_hbox[numberOfUsers];
+
+    // Gtk dashboard 
+    gint *dashboard_chosed_user_id;
+    GtkWidget *dashboard_window;
+    GtkWidget *dashboard_vbox;
+    GtkWidget *dashboard_left_vbox;
+    GtkWidget *dashboard_right_vbox;
+    GtkWidget *dashboard_calendar;
+    GtkWidget *dashboard_selected_user_hbox;
+    GtkWidget *dashboard_selected_user_label;
+    GtkWidget *dashboard_back_button;
+    GtkWidget *dashboard_show_details_button;
+    GtkWidget *dashboard_left_vbox_buttons_vbox;
+    GtkWidget *dashboard_solde_info_vbox;
+
+    // selcted user informations
+    GtkWidget *dashboard_current_sold_hbox;
+    GtkWidget *dashboard_remaining_sold_hbox;
+
+    GtkWidget *dashboard_remaining_sold_label;
+    char *date;
+    float selected_user_current_sold;
+    float selected_user_remaining_sold;
+    // strcpy(date,"28/02/2023");
+    // selected_user_current_sold=2500;
+    // selected_user_remaining_sold=500;
+
+    // new user creation
     GtkWidget *user_label[100];
     GtkWidget *users_hbox[100];
+    GtkWidget *user_delete_button[100];
+    GtkWidget *user_select_button[100];
     char users[100][255];
+
+
+
+
     //welcom widgets
     GtkWidget *welcome_window;
     GtkWidget *welcome_vbox;

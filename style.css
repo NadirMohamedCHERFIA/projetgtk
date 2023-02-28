@@ -1,13 +1,15 @@
 /* #00B2CA */
 #main__window,
-#new__user__window {
-  /* background-color: #031d35; */
+#new__user__window,
+#dashboard_window {
+  background-color: #031d35;
   font-size: 20px;
   font-weight: 600;
   color: white;
 }
 
-#users__vbox {
+#users__vbox,
+#dashboard__vbox {
   background-color: #112131;
   border-radius: 2%;
 }
@@ -36,7 +38,8 @@
 
 #add__user__button,
 #new__user__back,
-#new__user__submit {
+#new__user__submit,
+#dashboard__details_button {
   background-image: none;
   background-color: #0777d3;
     /* background-color: #0777d3; */
@@ -46,28 +49,32 @@
 
 #add__user__button:hover,
 #new__user__back:hover,
-#new__user__submit:hover {
+#new__user__submit:hover,
+#dashboard__details_button:hover {
   color: black;
   animation: toWhite 2s ease forwards;
 }
 
-#quit__button {
+#quit__button,#user_delete_button,
+#dashboard__back_button {
   background-color: rgb(218, 42, 42);
   background-image: none;
   border: none;
   color: black;
 }
 
-#quit__button:hover {
+#quit__button:hover,
+#dashboard__back_button:hover {
   /* color: white; */
   animation: toRed 2s ease forwards;
 }
+
 #users_vbox{
   /* overflow: scroll; */
 }
 #users_vbox>*{
   padding-left: 580;
-  background-color: rgb(0, 140, 255);
+  background-color: rgb(11, 52, 85);
 }
 
 #description_hbox {
@@ -75,6 +82,26 @@
   /* border: 10px solid red; */
   padding-left: 400;
   background-color: rgb(0, 175, 108);
+}
+
+
+
+
+#dashboard__left__vbox{
+  background-color: rgb(209, 209, 209);
+  border-radius: 3%;
+}
+
+#selected_user_hbox{
+  padding-left: 300;
+  border: 1px solid rgb(255, 255, 255);
+  padding-top: 30;
+  padding-bottom: 30;
+  border-radius: 4;
+}
+
+#dashboard_sold_vbox{
+  border: 1px solid white;
 }
 
 @keyframes toWhite {

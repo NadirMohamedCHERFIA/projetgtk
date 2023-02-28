@@ -11,7 +11,6 @@
 void create_new_user(GtkWidget *butt,gpointer* data){
     MainWindow *App;
     App=(MainWindow*)data;
-    // gtk_label_set_markup(GT)
     gtk_widget_hide(App->welcome_window);
     
     // ?new user window
@@ -68,12 +67,12 @@ void create_new_user(GtkWidget *butt,gpointer* data){
     //?new user password hbox
     App->new_user_password_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_pack_start(GTK_BOX(App->new_user_vbox_inputs), App->new_user_password_hbox, FALSE, TRUE, 0);
-    gtk_widget_set_size_request(App->new_user_password_hbox, 30, 600); 
+    // gtk_widget_set_size_request(App->new_user_password_hbox, 760,60); 
 
     //?new user password hbox confirm
     App->new_user_password_hbox_confirm = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_pack_start(GTK_BOX(App->new_user_vbox_inputs), App->new_user_password_hbox_confirm, FALSE, TRUE, 0);
-    gtk_widget_set_size_request(App->new_user_password_hbox, 30,600)
+    // gtk_widget_set_size_request(App->new_user_password_hbox, 760,60);
 
     //?new user password label
     App->new_user_password_label = gtk_label_new(NULL);
@@ -85,7 +84,7 @@ void create_new_user(GtkWidget *butt,gpointer* data){
     App->new_user_password_input = gtk_entry_new();
     gtk_box_pack_start(GTK_BOX(App->new_user_password_hbox), App->new_user_password_input, FALSE, TRUE, 0);
     gtk_entry_set_visibility(GTK_ENTRY(App->new_user_password_input),false);
-    gtk_widget_set_size_request(App->new_user_password_input, 760, 30);
+    gtk_widget_set_size_request(App->new_user_password_input, 760, 60);
 
     //?new user password label confirm
     App->new_user_password_label_confirm = gtk_label_new(NULL);
