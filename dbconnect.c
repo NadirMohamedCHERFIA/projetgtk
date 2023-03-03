@@ -38,44 +38,44 @@ void get_users(gpointer data)
 }
 
 
-// int user_exist(char name[]){
-//     // MainWindow *App = (MainWindow *)data;
-//     // int totalUsers = 0;
-//     MYSQL *conn = mysql_init(NULL);
-//     char query[1000];
-//     MYSQL_RES *res;
-//     MYSQL_ROW row;
-//     if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
-//     {
-//         sprintf(query, "SELECT * FROM users where name ='%s' ",name);
-//         if (mysql_query(conn, query))
-//         {
-//             g_print("ERROR : %d", mysql_errno(conn));
-//         }
-//         else
-//         {
-//             res = mysql_use_result(conn);
-//             /* output table name */
-//             printf("MySQL Tables in mysql database:\n");
-//             if(mysql_fetch_row(res)!=NULL){
-//                 mysql_free_result(res);
-//                 mysql_close(conn);
-//                 return 1;
-//             }
-//             else{
-//                 mysql_free_result(res);
-//                 mysql_close(conn);
-//                 return 0;
-//             }
-//         }
-//     }
-//     else
-//     {
-//         g_print("ERROR : %d", mysql_errno(conn));
-//     }
-//     mysql_free_result(res);
-//     mysql_close(conn);
-// }
+int user_exist(char name[]){
+    // MainWindow *App = (MainWindow *)data;
+    // int totalUsers = 0;
+    MYSQL *conn = mysql_init(NULL);
+    char query[1000];
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+    if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
+    {
+        sprintf(query, "SELECT * FROM users where name ='%s' ",name);
+        if (mysql_query(conn, query))
+        {
+            g_print("ERROR : %d", mysql_errno(conn));
+        }
+        else
+        {
+            res = mysql_use_result(conn);
+            /* output table name */
+            printf("MySQL Tables in mysql database:\n");
+            if(mysql_fetch_row(res)!=NULL){
+                mysql_free_result(res);
+                mysql_close(conn);
+                return 1;
+            }
+            else{
+                mysql_free_result(res);
+                mysql_close(conn);
+                return 0;
+            }
+        }
+    }
+    else
+    {
+        g_print("ERROR : %d", mysql_errno(conn));
+    }
+    mysql_free_result(res);
+    mysql_close(conn);
+}
 
 
 

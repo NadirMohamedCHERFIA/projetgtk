@@ -20,7 +20,7 @@ void handleNewUserSubmit(GtkWidget *but, gpointer data)
     password = gtk_entry_get_text(GTK_ENTRY(myApp->new_user_password_input));
     password_confirm = gtk_entry_get_text(GTK_ENTRY(myApp->new_user_password_input_confirm));
     g_print("username:%s\npassword:%s", user, password);
-    // if(user_exist(user)){
+    if(user_exist(user)==0){
         if(strcmp(password,password_confirm)!=0){
             password_verification_dialog();
         }else{
@@ -31,15 +31,16 @@ void handleNewUserSubmit(GtkWidget *but, gpointer data)
             handle_users(myApp);
             gtk_widget_show(myApp->welcome_window);
         }
-    // }else{
-    //     user_exist_dialog();
-    // }
+    }else{
+        user_exist_dialog();
+    }
 }
 
 void password_verification_dialog(){
     GtkWidget *dialog;
     GtkDialog *dialogContainer;
     GtkWidget *dialogLabel;
+    gint response;
     dialog = gtk_dialog_new();
     gtk_window_set_title(GTK_WINDOW(dialog),"mot de passe error");
     gtk_widget_set_size_request(dialog,400,50);
@@ -58,9 +59,10 @@ void user_exist_dialog()
     GtkWidget *dialog;
     GtkDialog *dialogContainer;
     GtkWidget *dialogLabel;
+    gint response;
     dialog = gtk_dialog_new();
-    gtk_window_set_title(GTK_WINDOW(dialog), "user exist error");
-    gtk_widget_set_size_request(dialog, 400, 50);
+    gtk_window_set_title(GTK_WINDOW(dialog), "username error");
+    gtk_widget_set_size_request(dialog,400,50);
     dialogContainer = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
     dialogLabel = gtk_label_new("Veuillez entrer un autre nom d'utilisateur celui là déjà exist!");
     gtk_container_add(GTK_CONTAINER(dialogContainer), dialogLabel);

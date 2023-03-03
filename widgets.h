@@ -76,4 +76,20 @@ struct _MainWindow
 };
 typedef struct _MainWindow MainWindow;
 
+typedef struct {
+    GtkWidget *window;
+    GtkWidget *vbox;
+    GtkWidget *user_hbox;
+    GtkWidget *password_hbox;
+    GtkWidget *description_hbox;
+    GtkWidget *buttons_hbox;
+    GtkWidget *description_label;
+    GtkWidget *user_label;
+    GtkWidget *user_entry;
+    GtkWidget *password_label;
+    GtkWidget *password_entry;
+    GtkWidget *submit;
+    GtkWidget *cancel;
+}signUpWindow;
+
 #endif

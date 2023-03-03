@@ -7,7 +7,9 @@ int welcome_window(gpointer data)
     //? initialising the number of users and then sending a request to get it
     App->numberOfUsers = 0;
     get_users((gpointer)App);
-
+    gint MAINWINDOWWIDTH = getScreenWidth();
+    gint MAINWINDOWHEIGHT =getScreenHeight();
+    gint MAINWINDOWBORDERWIDTH =30;
     //?Welcome window
     App->welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(App->welcome_window), WELCOMEWINDOWTITLE);

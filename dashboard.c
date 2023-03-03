@@ -12,6 +12,10 @@ void create_dashboard(GtkWidget *butt, gpointer data)
 {
     composedWindow *composedwindow ;
     composedwindow= (composedWindow *)data;
+    gint MAINWINDOWWIDTH = getScreenWidth();
+    gint MAINWINDOWHEIGHT = getScreenHeight();
+    gint MAINWINDOWBORDERWIDTH = 30;
+
     // g_print("\ndashboard : %s",composedwindow->name);
     //? dashboard window
     MainWindow *App;

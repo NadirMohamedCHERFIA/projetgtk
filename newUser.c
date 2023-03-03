@@ -5,6 +5,9 @@ void create_new_user(GtkWidget *butt, gpointer *data)
     MainWindow *App;
     App = (MainWindow *)data;
     gtk_widget_hide(App->welcome_window);
+    gint MAINWINDOWWIDTH = getScreenWidth();
+    gint MAINWINDOWHEIGHT = getScreenHeight();
+    gint MAINWINDOWBORDERWIDTH = 30;
 
     // ?new user window
     App->new_user_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);

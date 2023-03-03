@@ -33,7 +33,7 @@ void handle_users(gpointer data)
         composedwindow->App = App;
         composedwindow->id = i;
         strcpy(composedwindow->name,App->users[i]);
-        g_signal_connect(G_OBJECT(App->user_select_button[i]), "clicked", G_CALLBACK(create_dashboard), (gpointer)composedwindow);
+        g_signal_connect(G_OBJECT(App->user_select_button[i]), "clicked", G_CALLBACK(createSignUp), (gpointer)composedwindow);
         App->user_delete_button[i] = gtk_button_new_with_label("Delete");
         gtk_box_pack_start(GTK_BOX(App->users_hbox[i]), App->user_delete_button[i], FALSE, TRUE, 0);
 

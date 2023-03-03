@@ -1,3 +1,7 @@
-#define MAINWINDOWHEIGHT 800
-#define MAINWINDOWWIDTH 1200
-#define MAINWINDOWBORDERWIDTH 30
+#ifndef __SCREEN_H__
+#define __SCREEN_H__
+#include <gtk/gtk.h>
+    gint getScreenWidth();
+    gint getScreenHeight();
+
+#endif
