@@ -7,7 +7,7 @@
 #include "string.h"
 #include "userStruct.h"
 
-void handleBackDashboard(gpointer data);
+void handleBackDashboard(GtkWidget *butt,gpointer data);
 
 void create_dashboard(GtkWidget *butt, gpointer data);
 #endif

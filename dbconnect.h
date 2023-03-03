@@ -9,6 +9,6 @@
 void get_users(gpointer data);
 
 void add_new_user(char *user,char *password);
-
+void deleteUser(char name[]) ;
 void get_selected_user(gpointer data);
 #endif

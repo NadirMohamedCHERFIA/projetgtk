@@ -57,6 +57,25 @@ void add_new_user(char *user, char *password)
     mysql_close(conn);
 }
 
+void deleteUser(char name[]){
+    MYSQL *conn = mysql_init(NULL);
+    char query[1000];
+    if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
+    {
+        sprintf(query,"delete from users where name='%s'",name);
+        g_print("\n%s",query);
+        if (mysql_query(conn, query))
+        {
+            g_print("ERROR : %d", mysql_errno(conn));
+        }
+    }
+    else
+    {
+        g_print("ERROR : %d", mysql_errno(conn));
+    }
+    mysql_close(conn);
+}
+
 void get_selected_user(gpointer data)
 { // int id){
 
