@@ -9,4 +9,8 @@ void handleBack(GtkWidget *butt, gpointer data);
 
 void handleNewUserSubmit(GtkWidget *but,gpointer data);
 
+void password_verification_dialog();
+
+void user_exist_dialog()
+
 #endif

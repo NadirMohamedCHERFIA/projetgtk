@@ -7,6 +7,7 @@
 #include "widgets.h"
 #include "newUserController.h"
 #include "dimensions.h"
+#include "passwordHashing.h"
 
 void create_new_user(GtkWidget *butt, gpointer *data);
 
