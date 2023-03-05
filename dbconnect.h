@@ -13,5 +13,7 @@ void deleteUser(char name[]) ;
 void get_selected_user(gpointer data);
 int user_exist(char name[]);
 int verify_password(char *name,char *password);
-void get_last_user_id(gpointer data);
+// void get_last_user_id(gpointer data);
+void get_total_depenses_and_income(gpointer data);
+void get_user_id(gpointer data);
 #endif

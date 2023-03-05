@@ -1,7 +1,9 @@
 #include "dbconnect.h"
 void get_users(gpointer data)
 {
-    MainWindow *App = (MainWindow *)data;
+    composedWindow *compApp = (composedWindow *)data;
+    newUserWindow *App;
+    App = compApp->newUser;
     int totalUsers = 0;
     MYSQL *conn = mysql_init(NULL);
     char query[1000];
@@ -22,11 +24,11 @@ void get_users(gpointer data)
             while ((row = mysql_fetch_row(res)) != NULL)
             {
                 printf(" name :%s \n", row[1]);
-                strcpy(App->users[totalUsers], row[1]);
+                strcpy(compApp->App->users[totalUsers], row[1]);
                 totalUsers++;
             }
-            App->numberOfUsers = totalUsers;
-            g_print("total number of users : %d", App->numberOfUsers);
+            compApp->App->numberOfUsers = totalUsers;
+            g_print("total number of users : %d", compApp->App->numberOfUsers);
         }
     }
     else
@@ -125,6 +127,7 @@ void add_new_user(char *user, char *password)
     MYSQL *conn = mysql_init(NULL);
     char query[1000];
     char query2[100];
+    char query3[100];
     MYSQL_RES *res;
     MYSQL_ROW row;
     char id;
@@ -146,8 +149,9 @@ void add_new_user(char *user, char *password)
                 /* output table name */
                 while ((row = mysql_fetch_row(res)) != NULL)
                 {
-                    id=atoi(row[0]);
-                    g_print("\n row : %s",row[0]);
+                    if(row[0]!=NULL){
+                        id=atoi(row[0]);
+                    }
                 }
             }
         }
@@ -157,9 +161,66 @@ void add_new_user(char *user, char *password)
         g_print("ERROR : %d", mysql_errno(conn));
     }
 
-    g_print("last user id : %d",id);
     mysql_close(conn);
 }
+
+
+void get_total_depenses_and_income(gpointer data){
+    composedWindow *compApp = (composedWindow *)data;
+    MYSQL *conn = mysql_init(NULL);
+    char query[1000];
+    char query2[1000];
+
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+    g_print("\nDATABASE ID : %d",compApp->id);
+    if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
+    {
+        sprintf(query, "select sum(depense_value) from depenses where user_id =%d",compApp->id);
+        if (mysql_query(conn, query))
+        {
+            g_print("ERROR : %d", mysql_errno(conn));
+        }
+        else
+        {
+            res = mysql_use_result(conn);
+            /* output table name */
+            compApp->total_depenses=0;
+            while ((row = mysql_fetch_row(res)) != NULL)
+            {
+                if(row[0]!=NULL){
+                    compApp->total_depenses = atoi(row[0]);
+                }
+                // g_print("\ndb total depenses : %d",atoi(row[0]));
+            }
+        }
+        sprintf(query2, "select sum(income_value) from income where id_user =%d", compApp->id);
+        if (mysql_query(conn, query2))
+        {
+            g_print("ERROR : %d", mysql_errno(conn));
+        }
+        else
+        {
+            res = mysql_use_result(conn);
+            /* output table name */
+            compApp->total_income=0;
+            while ((row = mysql_fetch_row(res)) != NULL)
+            {
+                if(row[0]!=NULL){
+                    compApp->total_income= atoi(row[0]);
+                }
+                // g_print("\ndb total depenses : %d",atoi(row[0]));
+            }
+        }
+    }
+    else
+    {
+        g_print("ERROR : %d", mysql_errno(conn));
+    }
+    mysql_free_result(res);
+    mysql_close(conn);
+}
+
 
 void deleteUser(char name[]){
     MYSQL *conn = mysql_init(NULL);
@@ -177,5 +238,39 @@ void deleteUser(char name[]){
     {
         g_print("ERROR : %d", mysql_errno(conn));
     }
+    mysql_close(conn);
+}
+
+void get_user_id(gpointer data){
+    composedWindow *compApp = (composedWindow *)data;
+    MYSQL *conn = mysql_init(NULL);
+    char query[1000];
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+    g_print("\nDATABASE ID : %d", compApp->id);
+    if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
+    {
+        sprintf(query, "select id from users where name = '%s'", compApp->name);
+        if (mysql_query(conn, query))
+        {
+            g_print("ERROR : %d", mysql_errno(conn));
+        }
+        else
+        {
+            res = mysql_use_result(conn);
+            /* output table name */
+            while ((row = mysql_fetch_row(res)) != NULL)
+            {
+                compApp->id = atoi(row[0]);
+                // compApp->total_depenses = atoi(row[0]);
+                // g_print("\ndb total depenses : %d",atoi(row[0]));
+            }
+        }
+    }
+    else
+    {
+        g_print("ERROR : %d", mysql_errno(conn));
+    }
+    mysql_free_result(res);
     mysql_close(conn);
 }

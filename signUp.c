@@ -93,7 +93,8 @@ void handleUserPasswordVerification(GtkWidget *butt, gpointer data){
     if(verify_password(compApp->name,hashedPassword)==1){
         gtk_window_close(compApp->signup->window);
         gtk_widget_hide(compApp->App->welcome_window);
-        create_dashboard((gpointer) compApp);
+        get_user_id((gpointer)compApp);
+        create_dashboard((gpointer)compApp);
     }else{
         signup_password_error_dialog((gpointer)compApp);
     }

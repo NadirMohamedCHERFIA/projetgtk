@@ -16,12 +16,21 @@ typedef struct{
     GtkWidget *dashboard_back_button;
     GtkWidget *dashboard_show_details_button;
     GtkWidget *dashboard_left_vbox_buttons_vbox;
-    GtkWidget *dashboard_solde_info_vbox;
-    // selcted user informations
-    GtkWidget *dashboard_current_sold_hbox;
-    GtkWidget *dashboard_remaining_sold_hbox;
+    GtkWidget *dashboard_configure_button;
+    //selected date
+    GtkWidget *dashboard_date_box;
+    GtkWidget *dashboard_date_label;
+    // related to soldde
+    GtkWidget *dashboard_solde_info_hbox;
+    GtkWidget *dashboard_total_income_vbox;
+    GtkWidget *dashboard_total_depenses_vbox;
+    GtkWidget *dashboard_total_income_label;
+    GtkWidget *dashboard_total_depenses_label;
 
-    GtkWidget *dashboard_remaining_sold_label;
+    // related to categories
+    GtkWidget *dashboard_categories_hbox;
+    GtkWidget *dashboard_categories_scrolled_window;
+
 }dashboardWindow;
 
 typedef struct{

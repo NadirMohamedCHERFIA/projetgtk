@@ -4,10 +4,10 @@ int welcome_window(gpointer data)
     const gchar *const WELCOMEWINDOWTITLE = "GESTION DE DEPENSES";
 
     composedWindow *compApp = (composedWindow *)data;
-    MainWindow *App = g_malloc(sizeof(MainWindow));
+    MainWindow *App ;
+    App = compApp->App;
     //? initialising the number of users and then sending a request to get it
     App->numberOfUsers = 0;
-    get_users((gpointer)App);
     gint MAINWINDOWWIDTH = getScreenWidth();
     gint MAINWINDOWHEIGHT =getScreenHeight();
     gint MAINWINDOWBORDERWIDTH =30;
@@ -20,7 +20,8 @@ int welcome_window(gpointer data)
     gtk_window_set_position(GTK_WINDOW(App->welcome_window), GTK_WIN_POS_CENTER);
     gtk_container_set_border_width(GTK_CONTAINER(App->welcome_window), MAINWINDOWBORDERWIDTH);
     gtk_widget_set_name(App->welcome_window, "main__window");
-    compApp->App = App;
+    // compApp->App = App;
+    get_users((gpointer)compApp);
     //? welcome scrollable window
     App->welcome_users_scrolled_window = gtk_scrolled_window_new(NULL,NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(App->welcome_users_scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);

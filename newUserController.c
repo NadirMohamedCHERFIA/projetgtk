@@ -6,11 +6,9 @@ void handleBack(GtkWidget *butt, gpointer data)
     compApp = (composedWindow*)data;
     MainWindow *App;
     App = compApp->App;
+    get_users((gpointer)compApp);    
+    gtk_widget_show_all(compApp->App->welcome_window);
     gtk_window_close(GTK_WINDOW(compApp->newUser->new_user_window));
-    gtk_widget_show(compApp->App->welcome_window);
-    get_users((gpointer)App);
-    handle_adding_new_user((gpointer)App);
-    
 }
 
 void handleNewUserSubmit(GtkWidget *but, gpointer data)
@@ -31,13 +29,17 @@ void handleNewUserSubmit(GtkWidget *but, gpointer data)
         }else{
             hashedPassword = hashPassword(password);
             add_new_user(user, hashedPassword);
+            get_users(compApp);
+            handle_users(compApp->App);
+            // gtk_widget_show_all(compApp->App->welcome_window);
             gtk_window_close(GTK_WINDOW(myApp->new_user_window));
-            get_users(myApp);
-            handle_users(myApp);
+            // gtk_widget_hide(compApp->App->welcome_vbox_users);
             strcpy(compApp->name,user);
             create_dashboard((gpointer)compApp);
+            // get_user_id(compApp->name);
             create_created_dialog(user);
-            // gtk_widget_show(myApp->welcome_window);
+
+            // gtk_widget_show(compApp->App->welcome_window);
         }
     }else{
         user_exist_dialog();

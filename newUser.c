@@ -5,7 +5,8 @@ void create_new_user(GtkWidget *butt, gpointer data)
     composedWindow *compApp=(composedWindow *)data;
     // MainWindow *App;
     // App = compApp->App;
-    newUserWindow *App = g_malloc(sizeof(newUserWindow));
+    newUserWindow *App;
+    App = compApp->newUser;
     gtk_widget_hide(compApp->App->welcome_window);
     gint MAINWINDOWWIDTH = getScreenWidth();
     gint MAINWINDOWHEIGHT = getScreenHeight();
@@ -58,6 +59,7 @@ void create_new_user(GtkWidget *butt, gpointer data)
     gtk_label_set_justify(GTK_LABEL(App->new_user_description_label),GTK_JUSTIFY_CENTER);
     gtk_label_set_xalign(GTK_LABEL(App->new_user_description_label),0.5);
     gtk_widget_set_name(App->new_user_description_label,"new_user_description_label");
+
     // //? new user username label
     App->new_user_username_label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(App->new_user_username_label), "name : ");

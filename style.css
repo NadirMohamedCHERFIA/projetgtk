@@ -119,12 +119,16 @@
 
 #selected_user_hbox{
   /* padding-left: 300; */
-  font-size: 2rem;
-  font-weight: 800;
   padding: 20 50;
   border-radius: 20;
   background-color: rgb(3, 22, 58);
-  box-shadow: 2px -6px 19px 13px rgba(0, 0, 0, 0.75);}
+  box-shadow: 2px -6px 19px 13px rgba(0, 0, 0, 0.75);
+}
+#selected_user_hbox>*{
+  font-size: 3rem;
+  font-weight: 800;
+  color:#b3dcfd ;
+}
 
 #dashboard_sold_vbox{
   border: 1px solid white;
@@ -147,6 +151,45 @@
   border-radius: 5;
   border: 4px solid white;
 }
+
+/* dashboard */
+#info__solde__hbox
+{
+  /* border: 4px solid red; */
+  /* padding: 30; */
+}
+
+#info__categories__hbox{
+    padding: 30;
+    border-radius: 30;
+    background-color: rgb(3, 22, 58);
+    box-shadow: 2px -6px 19px 13px rgba(0, 0, 0, 0.75);
+}
+
+#total__depenses__box,
+#total__income__box,
+#date__box{
+    border-radius: 30;
+    background-color: rgb(3, 22, 58);
+    box-shadow: 2px -6px 19px 13px rgba(0, 0, 0, 0.75);
+    transition: all 1s ease;
+}
+#total__income__box>*,
+#total__depenses__box>*{
+  font-size: 1.5rem;
+}
+
+#date__box>*{
+  font-size: 2rem;
+}
+
+#total__depenses__box:hover,
+#total__income__box:hover {
+  box-shadow: 2px -6px 19px 13px rgba(255, 255, 255, 0.75);
+  border: 3px solid red;
+}
+
+
 @keyframes toWhite {
   to {
     background-color: white;

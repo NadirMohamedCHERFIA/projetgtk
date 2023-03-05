@@ -52,7 +52,7 @@ void handle_users(gpointer data)
         g_signal_connect(G_OBJECT(App->user_delete_button[i]),"clicked",G_CALLBACK(handleDeleteUser),(gpointer)composedwindow);
         g_print("\nAdding the %d user\n", i);
     }
-    gtk_widget_show_all(App->welcome_window);
+    // gtk_widget_show_all(App->welcome_vbox_users);
 }
 void handle_adding_new_user(gpointer data)
 {
@@ -96,8 +96,9 @@ void handleDeleteUser(GtkWidget *butt,gpointer data){
     switch(response){
         case 1:
         deleteUser(name);
-        get_users(App);
+        get_users(compApp);
         handle_users(App);
+        gtk_widget_show_all(App->welcome_window);
         gtk_widget_destroy(dialog);
         break;
         case 2:
@@ -109,21 +110,21 @@ void handleDeleteUser(GtkWidget *butt,gpointer data){
 
 }
 
-void confirm_delete_user(GtkWidget *butt,gpointer data){
-    composedWindow *comApp;
-    comApp = (composedWindow*)data;
-    GtkWidget *dialog;
-    dialog = comApp->dialog;
-    char *name;
-    strcpy(name,comApp->name);
-    // gdk_window_destroy(GTK_WINDOW(dialog));
-    // gtk_widget_destroy(dialog);
-    // deleteUser(name);
-    // get_users(comApp->App);
-    // handle_users(comApp->App);
-    // gtk_window_close(GTK_WINDOW(dialog));
-    // gtk_widget_show_all(comApp->App->welcome_window);
-}
+// void confirm_delete_user(GtkWidget *butt,gpointer data){
+//     composedWindow *comApp;
+//     comApp = (composedWindow*)data;
+//     GtkWidget *dialog;
+//     dialog = comApp->dialog;
+//     char *name;
+//     strcpy(name,comApp->name);
+//     // gdk_window_destroy(GTK_WINDOW(dialog));
+//     // gtk_widget_destroy(dialog);
+//     // deleteUser(name);
+//     // get_users(comApp->App);
+//     // handle_users(comApp->App);
+//     // gtk_window_close(GTK_WINDOW(dialog));
+//     // gtk_widget_show_all(comApp->App->welcome_window);
+// }
 
 void handle_cancel_delete(GtkWidget *butt, gpointer data){
     GtkWidget *dialog;

@@ -6,6 +6,12 @@ typedef struct composedWindow
 {
     int id;
     char name[100];
+    double total_depenses;
+    double total_income;
+
+    char date_formated[20];
+    char date_string[40];
+
     MainWindow *App;
     signUpWindow *signup;
     GtkWidget *dialog;
