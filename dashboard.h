@@ -9,5 +9,5 @@
 
 void handleBackDashboard(GtkWidget *butt,gpointer data);
 
-void create_dashboard(GtkWidget *butt, gpointer data);
+void create_dashboard(gpointer data);
 #endif

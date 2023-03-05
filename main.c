@@ -4,8 +4,8 @@
 #include "widgets.h"
 #include "style.h"
 int main(int argc, char *argv[]){
-    MainWindow *App;
-    App = g_malloc(sizeof(MainWindow));
+    composedWindow *App;
+    App = g_malloc(sizeof(composedWindow));
     gtk_init(&argc, &argv);
     load_css();
     welcome_window((gpointer)App);

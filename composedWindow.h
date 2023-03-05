@@ -7,6 +7,10 @@ typedef struct composedWindow
     int id;
     char name[100];
     MainWindow *App;
+    signUpWindow *signup;
     GtkWidget *dialog;
+    newUserWindow *newUser;
+    dashboardWindow *dashboard;
+
 } composedWindow;
 #endif

@@ -9,7 +9,7 @@ void get_users(gpointer data)
     MYSQL_ROW row;
     if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
     {
-        sprintf(query, "SELECT * FROM users");
+        sprintf(query, "SELECT * FROM users ORDER BY name");
         if (mysql_query(conn, query))
         {
             g_print("ERROR : %d", mysql_errno(conn));
@@ -77,12 +77,57 @@ int user_exist(char name[]){
     mysql_close(conn);
 }
 
+int verify_password(char *name, char *password){
+    MYSQL *conn = mysql_init(NULL);
+    char query[1000];
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+    char returndPassword[100];
+    strcpy(returndPassword,"");
+    if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
+    {
+        sprintf(query, "SELECT password FROM users where name='%s'",name);
+        if (mysql_query(conn, query))
+        {
+            g_print("ERROR : %d", mysql_errno(conn));
+        }
+        else
+        {
+            res = mysql_use_result(conn);
+            /* output table name */
+            while ((row = mysql_fetch_row(res)) != NULL)
+            {
+                strcpy(returndPassword,row[0]);
+                g_print("db:\n");
+                g_print("\ndata:%s\n",row[0]);
+                g_print("verify:%s\n",password);
+            }
+        }
+    }
+    else
+    {
+        g_print("ERROR : %d", mysql_errno(conn));
+    }
 
+    if(strcmp(returndPassword,password)==0 && returndPassword!=""){
+        mysql_free_result(res);
+        mysql_close(conn);
+        return 1;
+    }else{
+        mysql_free_result(res);
+        mysql_close(conn);
+        return 0;
+    }
+}
 
 void add_new_user(char *user, char *password)
 {
     MYSQL *conn = mysql_init(NULL);
     char query[1000];
+    char query2[100];
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+    char id;
     if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
     {
         sprintf(query, " insert into users(name,password) values('%s','%s')", user, password);
@@ -90,11 +135,29 @@ void add_new_user(char *user, char *password)
         {
             g_print("ERROR : %d", mysql_errno(conn));
         }
+        else
+        {
+            sprintf(query2,"SELECT id from users ORDER BY id DESC LIMIT 1");
+            if (mysql_query(conn, query2))
+            {
+                g_print("ERROR : %d", mysql_errno(conn));
+            }else{
+                res = mysql_use_result(conn);
+                /* output table name */
+                while ((row = mysql_fetch_row(res)) != NULL)
+                {
+                    id=atoi(row[0]);
+                    g_print("\n row : %s",row[0]);
+                }
+            }
+        }
     }
     else
     {
         g_print("ERROR : %d", mysql_errno(conn));
     }
+
+    g_print("last user id : %d",id);
     mysql_close(conn);
 }
 
@@ -115,12 +178,4 @@ void deleteUser(char name[]){
         g_print("ERROR : %d", mysql_errno(conn));
     }
     mysql_close(conn);
-}
-
-void get_selected_user(gpointer data)
-{ // int id){
-
-    MainWindow *App;
-    App = (MainWindow *)data;
-    App->selected_user_current_sold = 3000;
 }

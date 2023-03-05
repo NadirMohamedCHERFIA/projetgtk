@@ -8,6 +8,7 @@
 #include "usersList.h"
 #include "onQuitButton.h"
 #include "dimensions.h"
+#include "composedWindow.h"
 int welcome_window(gpointer data);
 
 #endif
