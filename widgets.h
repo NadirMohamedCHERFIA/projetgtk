@@ -26,7 +26,15 @@ typedef struct{
     GtkWidget *dashboard_total_depenses_vbox;
     GtkWidget *dashboard_total_income_label;
     GtkWidget *dashboard_total_depenses_label;
+    GtkWidget *dashboard_depenses_detail_button;
+    GtkWidget *dashboard_income_detail_button;
+    GtkWidget *dashboard_economy_vbox;
+    GtkWidget *dashboard_economy_label;
+    GtkWidget *dashbord_income_button_hbox;
 
+    GtkWidget *dashboard_income_ajoute_button;
+    GtkWidget *dashbord_depenses_button_hbox;
+    GtkWidget *dashboard_depenses_ajoute_button;
     // related to categories
     GtkWidget *dashboard_categories_hbox;
     GtkWidget *dashboard_categories_scrolled_window;

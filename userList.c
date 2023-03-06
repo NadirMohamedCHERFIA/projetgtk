@@ -49,7 +49,9 @@ void handle_users(gpointer data)
         gtk_widget_set_size_request(App->user_delete_button[i], (MAINWINDOWWIDTH - (MAINWINDOWBORDERWIDTH * 5 * 2)) * 0.2, MAINWINDOWHEIGHT * 0.1);
 
         gtk_widget_set_name(App->user_delete_button[i], "user_delete_button");
-        g_signal_connect(G_OBJECT(App->user_delete_button[i]),"clicked",G_CALLBACK(handleDeleteUser),(gpointer)composedwindow);
+        // g_signal_connect(G_OBJECT(App->user_delete_button[i]),"clicked",G_CALLBACK(handleDeleteUser),(gpointer)composedwindow);
+        g_signal_connect(G_OBJECT(App->user_delete_button[i]), "clicked", G_CALLBACK(create_delete_confirm_form), (gpointer)App->users[i]);
+
         g_print("\nAdding the %d user\n", i);
     }
     // gtk_widget_show_all(App->welcome_vbox_users);

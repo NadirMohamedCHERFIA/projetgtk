@@ -41,8 +41,6 @@ void get_users(gpointer data)
 
 
 int user_exist(char name[]){
-    // MainWindow *App = (MainWindow *)data;
-    // int totalUsers = 0;
     MYSQL *conn = mysql_init(NULL);
     char query[1000];
     MYSQL_RES *res;
@@ -176,7 +174,7 @@ void get_total_depenses_and_income(gpointer data){
     g_print("\nDATABASE ID : %d",compApp->id);
     if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
     {
-        sprintf(query, "select sum(depense_value) from depenses where user_id =%d",compApp->id);
+        sprintf(query, "select sum(depense_value) from depenses where user_id =%d and depense_date LIKE '%s-__' ",compApp->id,compApp->date_formated);
         if (mysql_query(conn, query))
         {
             g_print("ERROR : %d", mysql_errno(conn));
@@ -194,7 +192,7 @@ void get_total_depenses_and_income(gpointer data){
                 // g_print("\ndb total depenses : %d",atoi(row[0]));
             }
         }
-        sprintf(query2, "select sum(income_value) from income where id_user =%d", compApp->id);
+        sprintf(query2, "select sum(income_value) from income where id_user =%d and income_date LIKE '%s-__'", compApp->id,compApp->date_formated);
         if (mysql_query(conn, query2))
         {
             g_print("ERROR : %d", mysql_errno(conn));

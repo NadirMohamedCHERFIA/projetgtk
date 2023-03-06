@@ -22,6 +22,7 @@ void createSignUp(GtkWidget *button,gpointer data){
     gtk_container_set_border_width(GTK_CONTAINER(App->window), MAINWINDOWBORDERWIDTH*5);
     gtk_widget_set_name(App->window,"signup__window");
     compApp->dashboard = App;
+    
     //? vbox
     App->vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL,0);
     gtk_container_add(GTK_CONTAINER(App->window),App->vbox);

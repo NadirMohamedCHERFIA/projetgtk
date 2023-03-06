@@ -36,7 +36,7 @@ int welcome_window(gpointer data)
     gtk_widget_set_halign(App->welcome_description_hbox,GTK_ALIGN_CENTER);
 
     //? welcome description label
-    App->welcome_description_label = gtk_label_new("Control your budget");
+    App->welcome_description_label = gtk_label_new("Contrôle des dépenses");
     gtk_box_pack_start(GTK_BOX(App->welcome_description_hbox),App->welcome_description_label,FALSE,FALSE,0);
     gtk_label_set_justify(GTK_LABEL(App->welcome_description_label),GTK_JUSTIFY_CENTER);
     gtk_widget_set_name(App->welcome_description_label,"welcome_description_label");

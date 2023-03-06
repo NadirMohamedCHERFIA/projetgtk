@@ -70,10 +70,8 @@ void create_new_user(GtkWidget *butt, gpointer data)
     App->new_user_username_input = gtk_entry_new();
     gtk_box_pack_start(GTK_BOX(App->new_user_username_hbox), App->new_user_username_input, FALSE, FALSE, 0);
     gtk_widget_set_size_request(App->new_user_username_input, (MAINWINDOWWIDTH - (MAINWINDOWBORDERWIDTH * 5 * 3)) * 0.40, 50);
-
-
-
-
+    gtk_entry_set_placeholder_text(GTK_ENTRY(App->new_user_username_input),"Ex: john doe");
+    gtk_entry_set_overwrite_mode(GTK_ENTRY(App->new_user_username_input), TRUE);
 
     // //?new user password label
     App->new_user_password_label = gtk_label_new("Mot de passe : ");
@@ -85,6 +83,7 @@ void create_new_user(GtkWidget *butt, gpointer data)
     gtk_box_pack_start(GTK_BOX(App->new_user_password_hbox), App->new_user_password_input, FALSE, TRUE, 0);
     gtk_entry_set_visibility(GTK_ENTRY(App->new_user_password_input), false);
     gtk_widget_set_size_request(App->new_user_password_input, (MAINWINDOWWIDTH - (MAINWINDOWBORDERWIDTH * 5 * 3)) * 0.40, 50);
+    gtk_entry_set_placeholder_text(GTK_ENTRY(App->new_user_password_input),"Password ...");
 
     // //?new user password label confirm
     App->new_user_password_label_confirm = gtk_label_new(" Re-entrer le mot de passe : ");
@@ -97,6 +96,7 @@ void create_new_user(GtkWidget *butt, gpointer data)
     gtk_entry_set_visibility(GTK_ENTRY(App->new_user_password_input_confirm), false);
     gtk_widget_set_size_request(App->new_user_password_input_confirm, (MAINWINDOWWIDTH - (MAINWINDOWBORDERWIDTH * 5 * 3)) * 0.40, 50);
     g_signal_connect(G_OBJECT(App->new_user_password_input_confirm), "activate", G_CALLBACK(handleNewUserSubmit), (gpointer)compApp);
+    gtk_entry_set_placeholder_text(GTK_ENTRY(App->new_user_password_input_confirm), "password  again...");
 
     // //?new user submit button
     App->new_user_submit = gtk_button_new_with_label("Submit");
