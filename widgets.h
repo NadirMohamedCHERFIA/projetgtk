@@ -1,8 +1,8 @@
 #include <gtk/gtk.h>
 #include "string.h"
+#include "deleteConfirmForm.h"
 #ifndef __CONTAINER_H__
 #define __CONTAINER_H__
-
 typedef struct{
     // Gtk dashboard
     gint *dashboard_chosed_user_id;
@@ -63,7 +63,12 @@ typedef struct{
     GtkWidget *new_user_description_label;
     GtkWidget *new_user_password_input_confirm;
 }newUserWindow;
-
+typedef struct
+{
+    char name[100];
+    char password[100];
+    GtkWidget *window;
+} userNamePassword;
 struct _MainWindow
 {   
     int numberOfUsers;
@@ -85,10 +90,11 @@ struct _MainWindow
     GtkWidget *welcome_new_user_button;
     GtkWidget *welcome_quit;
     GtkWidget *welcome_users_scrolled_window;
-    //new user
-
+    //delete user info
 };
 typedef struct _MainWindow MainWindow;
+
+
 
 typedef struct {
     GtkWidget *window;

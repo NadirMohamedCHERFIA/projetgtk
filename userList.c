@@ -34,13 +34,19 @@ void handle_users(gpointer data)
         App->user_select_button[i] = gtk_button_new_with_label("Select user");
         gtk_box_pack_start(GTK_BOX(App->users_hbox[i]), App->user_select_button[i], TRUE, FALSE, 0);
 
+        // userNamePassword *user= g_malloc(sizeof(newUserWindow));
         gtk_widget_set_name(App->user_select_button[i],"select__button");
 
         composedWindow *composedwindow;
         composedwindow = g_malloc(sizeof(composedWindow));
         composedwindow->App = App;
+
+        userNamePassword *user;
+        user = g_malloc(sizeof(userNamePassword));
+        composedwindow->userDelteConfirmation = user;
         // composedwindow->id = i;
         strcpy(composedwindow->name,App->users[i]);
+        strcpy(composedwindow->userDelteConfirmation->name,composedwindow->name);
         g_signal_connect(G_OBJECT(App->user_select_button[i]), "clicked", G_CALLBACK(createSignUp), (gpointer)composedwindow);
         gtk_widget_set_size_request(App->user_select_button[i], (MAINWINDOWWIDTH - (MAINWINDOWBORDERWIDTH * 5 * 2)) * 0.2, MAINWINDOWHEIGHT * 0.1);
 
@@ -50,7 +56,7 @@ void handle_users(gpointer data)
 
         gtk_widget_set_name(App->user_delete_button[i], "user_delete_button");
         // g_signal_connect(G_OBJECT(App->user_delete_button[i]),"clicked",G_CALLBACK(handleDeleteUser),(gpointer)composedwindow);
-        g_signal_connect(G_OBJECT(App->user_delete_button[i]), "clicked", G_CALLBACK(create_delete_confirm_form), (gpointer)App->users[i]);
+        g_signal_connect(G_OBJECT(App->user_delete_button[i]), "clicked", G_CALLBACK(create_delete_confirm_form), (gpointer)composedwindow);
 
         g_print("\nAdding the %d user\n", i);
     }

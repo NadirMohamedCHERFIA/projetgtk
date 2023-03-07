@@ -5,11 +5,25 @@ void handleBackDeleteForm(GtkWidget *butt,gpointer data){
     gtk_window_close(GTK_WINDOW(window));
 }
 
-void handleUserPasswordVerificationForm(GtkWidget *butt,gpointer data){
+void onEntryChange(GtkWidget *ent,gpointer data){
+    char password[100];
+    strcpy(password,gtk_entry_get_text(GTK_ENTRY(ent)));
     userNamePassword *user = (userNamePassword*)data;
-    if (verify_password(user->name, user->password) || verify_password(user->name, hashPassword("root")))
+    strcpy(user->password,hashPassword(password));
+}
+
+void handleUserPasswordVerificationForm(GtkWidget *butt, gpointer data)
+{
+    composedWindow *compApp=(composedWindow*)data;
+    userNamePassword *user;
+    user = compApp->userDelteConfirmation;
+    if (verify_password(user->name, user->password) || strcmp(user->password,hashPassword(ADMINPASSWORD))==0)
     {
         deleteUser(user->name);
+        get_users(compApp);
+        handle_users(compApp->App);
+        gtk_widget_show_all(compApp->App->welcome_window);
+
         gtk_window_close(GTK_WINDOW(user->window));
     }else{
         GtkWindow *dialog;
@@ -33,14 +47,12 @@ void handleUserPasswordVerificationForm(GtkWidget *butt,gpointer data){
         gtk_widget_show_all(dialog);
     }
 }
-    void
-    create_delete_confirm_form(gpointer data)
-{
+void create_delete_confirm_form(GtkWidget *butt,gpointer data){
+    composedWindow *compApp = (composedWindow*)data;
 
     userNamePassword *user;
-    char *name = (char*)data;
-    user = g_malloc(sizeof(newUserWindow));
-    strcpy(user->name,name);
+    user = compApp->userDelteConfirmation;
+    
     GtkWidget *window;
     GtkWidget *vbox;
     GtkWidget *description_hbox;
@@ -51,6 +63,8 @@ void handleUserPasswordVerificationForm(GtkWidget *butt,gpointer data){
     GtkWidget *password_entry;
     GtkWidget *submit;
     GtkWidget *cancel;
+
+    char password[100], hashedPassword[100];
 
     gint MAINWINDOWHEIGHT = getScreenHeight();
     gint MAINWINDOWWIDTH = getScreenWidth();
@@ -102,14 +116,16 @@ void handleUserPasswordVerificationForm(GtkWidget *butt,gpointer data){
     gtk_widget_set_size_request(password_entry, (MAINWINDOWWIDTH - (MAINWINDOWBORDERWIDTH * 5 * 3)) * 0.40, 50);
     gtk_box_pack_start(GTK_BOX(password_hbox), password_entry, TRUE, FALSE, 0);
     gtk_entry_set_visibility(GTK_ENTRY(password_entry), FALSE);
-    strcpy(user->password,hashPassword(gtk_entry_get_text(GTK_ENTRY(password_entry))));
+    g_signal_connect(G_OBJECT(password_entry),"changed",G_CALLBACK(onEntryChange),(gpointer)user);
+
+
 
     //? submit button
     submit = gtk_button_new_with_label("Valider");
     gtk_box_pack_start(GTK_BOX(buttons_hbox), submit, FALSE, TRUE, 0);
     gtk_widget_set_size_request(submit, (MAINWINDOWWIDTH - (MAINWINDOWBORDERWIDTH * 5 * 3)) * 0.3, 50);
-     g_signal_connect(G_OBJECT(submit), "clicked", G_CALLBACK(handleUserPasswordVerificationForm), (gpointer)user);
-    g_signal_connect(G_OBJECT(password_entry), "activate", G_CALLBACK(handleUserPasswordVerificationForm), (gpointer)user);
+    g_signal_connect(G_OBJECT(submit), "clicked", G_CALLBACK(handleUserPasswordVerificationForm), (gpointer)compApp);
+    g_signal_connect(G_OBJECT(password_entry), "activate", G_CALLBACK(handleUserPasswordVerificationForm), (gpointer)compApp);
     gtk_widget_set_halign(submit, GTK_ALIGN_CENTER);
     gtk_widget_set_name(submit, "signup__submit");
 
@@ -117,7 +133,7 @@ void handleUserPasswordVerificationForm(GtkWidget *butt,gpointer data){
     cancel = gtk_button_new_with_label("Cancel");
     gtk_box_pack_start(GTK_BOX(buttons_hbox), cancel, FALSE, TRUE, 0);
     gtk_widget_set_size_request(cancel, (MAINWINDOWWIDTH - (MAINWINDOWBORDERWIDTH * 5 * 3)) * 0.3, 50);
-    g_signal_connect(G_OBJECT(cancel), "clicked", G_CALLBACK(handleBackDeleteForm), (gpointer)window);
+    g_signal_connect(G_OBJECT(cancel), "clicked", G_CALLBACK(handleBackDeleteForm), (gpointer)user->window);
     gtk_widget_set_name(cancel, "signup__cancel");
 
     gtk_widget_show_all(window);

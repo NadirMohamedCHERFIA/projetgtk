@@ -6,6 +6,8 @@ int welcome_window(gpointer data)
     composedWindow *compApp = (composedWindow *)data;
     MainWindow *App ;
     App = compApp->App;
+    // userNamePassword *user = g_malloc(sizeof(userNamePassword));
+    // compApp->userDelteConfirmation = user;
     //? initialising the number of users and then sending a request to get it
     App->numberOfUsers = 0;
     gint MAINWINDOWWIDTH = getScreenWidth();
