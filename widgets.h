@@ -35,6 +35,9 @@ typedef struct{
     GtkWidget *dashboard_income_ajoute_button;
     GtkWidget *dashbord_depenses_button_hbox;
     GtkWidget *dashboard_depenses_ajoute_button;
+    GtkWidget *dashboard_depenses_modify_button;
+    GtkWidget *dashboard_income_modify_button;
+
     // related to categories
     GtkWidget *dashboard_categories_hbox;
     GtkWidget *dashboard_categories_scrolled_window;
@@ -94,7 +97,12 @@ struct _MainWindow
 };
 typedef struct _MainWindow MainWindow;
 
-
+typedef struct {
+    GtkWidget *window;
+    GtkWidget *image;
+    GtkWidget *button;
+    GtkWidget *box;
+}imageWindow;
 
 typedef struct {
     GtkWidget *window;
@@ -111,5 +119,81 @@ typedef struct {
     GtkWidget *submit;
     GtkWidget *cancel;
 }signUpWindow;
+
+typedef struct{
+
+    GtkWindow *window;
+    GtkWindow *vbox;
+    GtkWidget *descriptionbox;
+    GtkWidget *descriptionlabel;
+    GtkWidget *income_type_box;
+    GtkWidget *typeLabel;
+    GtkWidget *income_monthly_radio;
+    GtkWidget *income_not_monthly_radio;
+
+    //?*************************************
+    gint selected_type;
+    //?**********************************
+    GtkWidget *valuebox;
+    GtkWidget *valueEntry;
+    GtkWidget *valueLabel;
+    //******************************************
+    GtkWidget *databox;
+    GtkWidget *modifyButton;
+    GtkWidget *dateLabel;
+    //***********************************************
+    GtkWidget *valueDescriptionBox;
+    GtkWidget *valueDescriptionLabel;
+    GtkTextView *valueDescriptionEntry;
+    GtkWidget *textViewScrolledWindow;
+    //******************************************
+    GtkWidget *buttonsbox;
+    GtkWidget *confirmButton;
+    GtkWidget *cancelButton;
+
+}incomeAddWindow;
+
+typedef struct
+{
+
+    GtkWindow *window;
+    GtkWindow *vbox;
+    GtkWidget *descriptionbox;
+    GtkWidget *descriptionlabel;
+    GtkWidget *income_type_box;
+    GtkWidget *typeLabel;
+    GtkWidget *income_monthly_radio;
+    GtkWidget *income_not_monthly_radio;
+
+    //?*************************************
+    gint selected_type;
+    //?**********************************
+    GtkWidget *valuebox;
+    GtkWidget *valueEntry;
+    GtkWidget *valueLabel;
+    //******************************************
+    GtkWidget *databox;
+    GtkWidget *modifyButton;
+    GtkWidget *dateLabel;
+    //***********************************************
+    GtkWidget *valueDescriptionBox;
+    GtkWidget *valueDescriptionLabel;
+    GtkTextView *valueDescriptionEntry;
+    GtkWidget *textViewScrolledWindow;
+    //******************************************
+    GtkWidget *buttonsbox;
+    GtkWidget *confirmButton;
+    GtkWidget *cancelButton;
+
+} depenseAddWindow;
+
+typedef struct {
+    GtkWidget *calendar;
+    GtkWidget *window;
+    GtkWidget *button;
+    GtkWidget *box;
+    char date_string[100];
+    char date_formated[100];
+}calendarWindow;
 
 #endif

@@ -79,6 +79,13 @@ void create_delete_confirm_form(GtkWidget *butt,gpointer data){
     gtk_window_set_title(GTK_WINDOW(window),"Confirmer le suppression de l'utilisateur");
     gtk_window_set_default_size(GTK_WINDOW(window),MAINWINDOWWIDTH,MAINWINDOWHEIGHT);
     gtk_widget_set_name(window,"confirm_delete_form");
+    GtkWidget *titleBar;
+    titleBar = gtk_header_bar_new();
+    gtk_header_bar_set_title(GTK_HEADER_BAR(titleBar), "Confirmer le suppression de l'utilisateur");
+    gtk_window_set_titlebar(GTK_WINDOW(window), titleBar);
+    gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(titleBar), TRUE);
+    gtk_widget_set_name(titleBar, "titleBar");
+
     user->window=window;
     //? vbox
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
@@ -135,6 +142,5 @@ void create_delete_confirm_form(GtkWidget *butt,gpointer data){
     gtk_widget_set_size_request(cancel, (MAINWINDOWWIDTH - (MAINWINDOWBORDERWIDTH * 5 * 3)) * 0.3, 50);
     g_signal_connect(G_OBJECT(cancel), "clicked", G_CALLBACK(handleBackDeleteForm), (gpointer)user->window);
     gtk_widget_set_name(cancel, "signup__cancel");
-
     gtk_widget_show_all(window);
 }

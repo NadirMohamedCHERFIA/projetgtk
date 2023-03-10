@@ -10,5 +10,5 @@
 #include "dimensions.h"
 #include "composedWindow.h"
 int welcome_window(gpointer data);
-
+void show_window(gpointer data);
 #endif

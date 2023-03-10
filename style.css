@@ -9,12 +9,24 @@
 #new__user__window,
 #dashboard_window,
 #signup__window,
-#confirm_delete_form {
+#confirm_delete_form ,
+#image__window{
   background-color: #031d35;
   font-weight: 600;
   color: white;
 }
 
+#income__add__window{
+  font-weight: 600;
+    color: white;
+  background-color: #0465a7;
+}
+
+#titleBar{
+  color: black;
+  /* background-color: #031d35; */
+  /* background: none; */
+}
 #users__vbox
 /* #dashboard__vbox  */
 {
@@ -38,7 +50,9 @@
 /* #new__user__back, */
 #new__user__submit,
 #dashboard__details_button,
-#signup__submit {
+#signup__submit,
+#confirm_button,
+#commencer__button {
   background-image: none;
   background-color: #084475;
     /* background-color: #0777d3; */
@@ -46,11 +60,19 @@
   color: white ;
 }
 
+#commencer__button:hover{
+  background-color: #ffae00;
+  color: black;
+  border: none;
+}
+
 #add__user__button:hover,
 /* #new__user__back:hover, */
 #new__user__submit:hover,
 #dashboard__details_button:hover,
-#signup__submit:hover {
+#signup__submit:hover ,
+#confirm_button:hover
+{
   color: black;
   animation: toWhite 2s ease forwards;
 }
@@ -58,7 +80,8 @@
 #quit__button,#user_delete_button,
 #dashboard__back_button,
 #signup__cancel,
-#new__user__back {
+#new__user__back,
+#cancel_button {
   background-color: rgb(196, 10, 10);
   background-image: none;
   border: none;
@@ -69,7 +92,8 @@
 #dashboard__back_button:hover,
 #user_delete_button:hover ,
 #signup__cancel:hover,
-#new__user__back:hover{
+#new__user__back:hover,
+#cancel_button:hover{
   /* color: white; */
   animation: toRed 2s ease forwards;
 }
@@ -170,7 +194,9 @@
 #total__depenses__box,
 #total__income__box,
 #date__box,
-#economy__box{
+#economy__box,
+#income__add__vbox,
+#income__add__description__box{
     border-radius: 30;
     background-color: rgb(3, 22, 58);
     box-shadow: 2px -6px 19px 13px rgba(0, 0, 0, 0.75);
@@ -182,6 +208,12 @@
   font-size: 1.5rem;
 }
 
+#income__add__vbox{
+  padding: 40;
+}
+#textview{
+  border-radius: 10;
+}
 #date__box{
   padding: 20 0;
 }
@@ -199,17 +231,50 @@
 
 #income__detail,
 #depenses__detail{
-  transition: all 2s ease;
-  color: white;
-  background-color: #084475;
+  /* transition: all 2s ease; */
+  color: black;
+  background-color: #ffffff;
   background-image: none;
   border: none;
 }
+
+
+#depenses__ajoute,#income__ajoute{
+  background: #374b61;
+    color: white;
+    border: none;
+}
+#depenses__ajoute:hover,
+#depenses__modify:hover,
+#income__ajoute:hover,
+#income__modify:hover,
 #income__detail:hover,
-#depenses__detail:hover{
-  background-color: #092e4d;
+#depenses__detail:hover,
+#configure__button:hover{
+  /* font-size: 1.2 */
+  background-image: none;
+  border-color: transparent;
+  color: white;
+  background-color: rgb(2, 172, 143);
+}
+#depenses__modify,
+#income__modify{
+    background: #0465a7;
+    /* background: radial-gradient(circle, rgba(56, 162, 146, 1) 0%, rgb(21, 36, 112) 100%); */
+    color: white;
+    border: none;
 }
 
+#image{
+  opacity: 1;
+  /* animation: fade 4s linear forwards; */
+}
+
+@keyframes fade{
+  to{
+    opacity: 0;
+  }
+}
 
 @keyframes toWhite {
   to {

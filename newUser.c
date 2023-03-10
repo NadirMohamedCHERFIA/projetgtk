@@ -19,6 +19,13 @@ void create_new_user(GtkWidget *butt, gpointer data)
     gtk_window_set_default_size(GTK_WINDOW(App->new_user_window), MAINWINDOWWIDTH,MAINWINDOWHEIGHT);
     gtk_container_set_border_width(GTK_CONTAINER(App->new_user_window),MAINWINDOWBORDERWIDTH*5);
     gtk_widget_set_name(App->new_user_window, "new__user__window");
+    GtkWidget *titleBar;
+    titleBar = gtk_header_bar_new();
+    gtk_header_bar_set_title(GTK_HEADER_BAR(titleBar), "Création d'un nouveau utilisateur");
+    gtk_window_set_titlebar(GTK_WINDOW(App->new_user_window), titleBar);
+    gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(titleBar), TRUE);
+    gtk_widget_set_name(titleBar, "titleBar");
+
     compApp->newUser = App;
 
     //?new user G vbox

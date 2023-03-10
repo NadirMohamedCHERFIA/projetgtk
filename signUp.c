@@ -21,6 +21,13 @@ void createSignUp(GtkWidget *button,gpointer data){
     gtk_window_set_position(GTK_WINDOW(App->window),GTK_WIN_POS_CENTER);
     gtk_container_set_border_width(GTK_CONTAINER(App->window), MAINWINDOWBORDERWIDTH*5);
     gtk_widget_set_name(App->window,"signup__window");
+    GtkWidget *titleBar;
+    titleBar = gtk_header_bar_new();
+    gtk_header_bar_set_title(GTK_HEADER_BAR(titleBar), "Sign up");
+    gtk_window_set_titlebar(GTK_WINDOW(App->window), titleBar);
+    gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(titleBar), TRUE);
+    gtk_widget_set_name(titleBar, "titleBar");
+
     compApp->dashboard = App;
     
     //? vbox
@@ -109,6 +116,7 @@ void signup_password_error_dialog(gpointer data){
     dialog = gtk_dialog_new();
     gtk_window_set_title(GTK_WINDOW(dialog),"Mot de passe incorrect");
     gtk_widget_set_size_request(dialog,400,50);
+    gtk_window_set_position(GTK_WINDOW(dialog),GTK_WIN_POS_CENTER_ON_PARENT);
     dialogContainer = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
     label = gtk_label_new("Le mot de passe que vous avez insérer est incorrect");
     button = gtk_button_new_with_label("Ok");

@@ -1,4 +1,12 @@
 #include "welcome.h"
+void show_window(gpointer data){
+    composedWindow *compApp = (composedWindow*)data;
+    compApp->first_load =0;
+    MainWindow *App;
+    App= compApp->App;
+    gtk_widget_show_all(App->welcome_users_scrolled_window);
+    gtk_widget_show_all(App->welcome_window);
+}
 int welcome_window(gpointer data)
 {
     const gchar *const WELCOMEWINDOWTITLE = "GESTION DE DEPENSES";
@@ -13,9 +21,17 @@ int welcome_window(gpointer data)
     gint MAINWINDOWWIDTH = getScreenWidth();
     gint MAINWINDOWHEIGHT =getScreenHeight();
     gint MAINWINDOWBORDERWIDTH =30;
+
     //?Welcome window
     App->welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(App->welcome_window), WELCOMEWINDOWTITLE);
+    // gtk_window_set_title(GTK_WINDOW(App->welcome_window), WELCOMEWINDOWTITLE);
+    GtkWidget *titleBar;
+    titleBar = gtk_header_bar_new();
+    gtk_header_bar_set_title(GTK_HEADER_BAR(titleBar),"GESTION DE DEPENSES");
+    gtk_window_set_titlebar(GTK_WINDOW(App->welcome_window),titleBar);
+    gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(titleBar), TRUE);
+    gtk_widget_set_name(titleBar,"titleBar");
+
     gtk_window_set_default_size(GTK_WINDOW(App->welcome_window), MAINWINDOWWIDTH, MAINWINDOWHEIGHT);
     // gtk_window_fullscreen(App->welcome_window);
     g_signal_connect(GTK_WINDOW(App->welcome_window), "destroy", G_CALLBACK(onQuitButton), (gpointer)App);
@@ -24,6 +40,17 @@ int welcome_window(gpointer data)
     gtk_widget_set_name(App->welcome_window, "main__window");
     // compApp->App = App;
     get_users((gpointer)compApp);
+    // gtk_widget_hide(App->welcome_window);
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    // GtkWidget *overlay;
+    // overlay = gtk_overlay_new();
+    // gtk_container_add(GTK_CONTAINER(App->welcome_window),overlay);
+    // gtk_overlay_add_overlay(GTK_OVERLAY(overlay),image);
+    // GtkWidget *image;
+    // image=gtk_image_new_from_file("background.png");
+    // gtk_container_add(GTK_CONTAINER(App->welcome_window),image);
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //? welcome scrollable window
     App->welcome_users_scrolled_window = gtk_scrolled_window_new(NULL,NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(App->welcome_users_scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
@@ -71,8 +98,7 @@ int welcome_window(gpointer data)
     gtk_box_pack_start(GTK_BOX(App->welcome_hbox_buttons), App->welcome_quit, TRUE, TRUE, 40);
     g_signal_connect(GTK_BUTTON(App->welcome_quit), "clicked", G_CALLBACK(onQuitButton), (gpointer)data);
     gtk_widget_set_name(App->welcome_quit, "quit__button");
-
-    // g_print("Totalusers : %d",App->numberOfUsers);
     gtk_widget_show_all(App->welcome_users_scrolled_window);
     gtk_widget_show_all(App->welcome_window);
+
 }
