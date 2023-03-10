@@ -4,6 +4,7 @@
 #include "widgets.h"
 #include "style.h"
 #include "imageWindow.h"
+#include "depenseAddWindow.h"
 int main(int argc, char *argv[]){
     composedWindow *App;
     App = g_malloc(sizeof(composedWindow));

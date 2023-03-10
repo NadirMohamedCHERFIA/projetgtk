@@ -10,7 +10,14 @@ static void onCalendarChange(GtkWidget *calendar, gpointer data)
     sprintf(App->date_formated, "%d-%02d-%02d", year, month + 1,day);
     sprintf(App->date_string, "%02d %s %d", day, MONTHS[month], year);
     sprintf(date,"Date : %s",App->date_string);
-    gtk_label_set_markup(GTK_LABEL(compApp->incomeaddwindow->dateLabel), date);
+    if(compApp->opened_window ==2){
+        gtk_label_set_markup(GTK_LABEL(compApp->depense_window->dateLabel), date);
+    }
+    else if (compApp->opened_window == 1)
+    {
+        gtk_label_set_markup(GTK_LABEL(compApp->incomeaddwindow->dateLabel), date);
+    }
+
     g_print("test : %s",App->date_formated);
 }
 void handleCalendar(GtkWidget *butt, gpointer data){

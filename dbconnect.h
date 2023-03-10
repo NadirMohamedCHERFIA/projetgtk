@@ -17,4 +17,6 @@ int verify_password(char *name,char *password);
 void get_total_depenses_and_income(gpointer data);
 void get_user_id(gpointer data);
 void add_income(float value, int type, int user_id,char date[],char *description);
+void add_depense(float value, int type, int user_id, char date[], char *description);
+
 #endif

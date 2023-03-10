@@ -14,6 +14,12 @@ typedef struct composedWindow
     char date_string[40];
     gint first_load;
     GtkWidget *dialog;
+    
+    //? opened winodow 1 :  add incomes, 2: add depense@
+    gint opened_window;
+
+
+
     MainWindow *App;
     imageWindow *imagewind;
     signUpWindow *signup;

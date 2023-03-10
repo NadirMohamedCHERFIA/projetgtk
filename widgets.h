@@ -160,11 +160,22 @@ typedef struct
     GtkWindow *vbox;
     GtkWidget *descriptionbox;
     GtkWidget *descriptionlabel;
-    GtkWidget *income_type_box;
+    GtkWidget *depense_type_box;
     GtkWidget *typeLabel;
-    GtkWidget *income_monthly_radio;
-    GtkWidget *income_not_monthly_radio;
-
+    GtkWidget *scrolledWindow;
+    GtkWidget *typelabelbox;
+    //?*************************
+    GtkWidget *logement_radio;
+    GtkWidget *quotidienne_radio;
+    GtkWidget *loisirs_radio;
+    GtkWidget *voyages_et_transports;
+    GtkWidget *abonnemets;
+    GtkWidget *auto_moto;
+    GtkWidget *sante;
+    GtkWidget *alimentation;
+    GtkWidget *vacances;
+    GtkWidget *Animeaux;
+    GtkWidget *depensesTypes[10];
     //?*************************************
     gint selected_type;
     //?**********************************

@@ -219,39 +219,7 @@ void get_total_depenses_and_income(gpointer data){
     mysql_close(conn);
 }
 
-void add_income(float value, int type, int user_id, char date[], char *description){
-    g_print("called");
-    MYSQL *conn = mysql_init(NULL);
-    char query[1000];
-    // g_print("db value ! %f",value);
-    // g_print("db type : %d",type);
-    // g_print("user id : %d", user_id);
-    // g_print("db date : %s",date);
-    // g_print("db description: %s",description);
 
-    // MYSQL_RES *res;
-    // MYSQL_ROW row;
-    if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
-    {
-        sprintf(query, "INSERT INTO income(income_value,id_category,id_user,income_date,description) values(REPLACE('%f',',','.'), %d, %d, '%s','%s' )", value, type, user_id, date, description);
-        g_print("%s",query);
-
-        if (mysql_query(conn, query))
-        {
-            g_print("ERROR : %d", mysql_errno(conn));
-        }
-        else
-        {
-            g_print("income added successfully");
-        }
-    }
-    else
-    {
-        g_print("ERROR : %d", mysql_errno(conn));
-    }
-    // mysql_free_result(res);
-    mysql_close(conn);
-}
 
 void deleteUser(char name[]){
     MYSQL *conn = mysql_init(NULL);
@@ -303,5 +271,57 @@ void get_user_id(gpointer data){
         g_print("ERROR : %d", mysql_errno(conn));
     }
     mysql_free_result(res);
+    mysql_close(conn);
+}
+
+void add_income(float value, int type, int user_id, char date[], char *description)
+{
+    g_print("called");
+    MYSQL *conn = mysql_init(NULL);
+    char query[1000];
+    if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
+    {
+        sprintf(query, "INSERT INTO income(income_value,id_category,id_user,income_date,description) values(REPLACE('%f',',','.'), %d, %d, '%s','%s' )", value, type, user_id, date, description);
+        g_print("%s", query);
+
+        if (mysql_query(conn, query))
+        {
+            g_print("ERROR : %d", mysql_errno(conn));
+        }
+        else
+        {
+            g_print("income added successfully");
+        }
+    }
+    else
+    {
+        g_print("ERROR : %d", mysql_errno(conn));
+    }
+    mysql_close(conn);
+}
+
+void add_depense(float value, int type, int user_id, char date[], char *description)
+{
+    g_print("called");
+    MYSQL *conn = mysql_init(NULL);
+    char query[1000];
+    if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
+    {
+        sprintf(query, "INSERT INTO depenses(depense_value,category_id,user_id,depense_date,description) values(REPLACE('%f',',','.'), %d, %d, '%s','%s' )", value, type, user_id, date, description);
+        g_print("%s", query);
+
+        if (mysql_query(conn, query))
+        {
+            g_print("ERROR : %d", mysql_errno(conn));
+        }
+        else
+        {
+            g_print("income added successfully");
+        }
+    }
+    else
+    {
+        g_print("ERROR : %d", mysql_errno(conn));
+    }
     mysql_close(conn);
 }

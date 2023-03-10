@@ -53,9 +53,10 @@ void handleAddIncomeConfirm(GtkWidget *butt,gpointer data){
     void
     create_income_add_window(GtkWidget *butt, gpointer data)
 {
+
     composedWindow *compApp = (composedWindow*)data;
     incomeAddWindow *App = g_malloc(sizeof(incomeAddWindow));
-
+    compApp->opened_window = 1;
     gint MAINWINDOWWIDTH = getScreenWidth();
     gint MAINWINDOWHEIGHT = getScreenHeight();
     gint MAINWINDOWBORDERWIDTH =60;
@@ -183,7 +184,7 @@ void handleAddIncomeConfirm(GtkWidget *butt,gpointer data){
     gtk_widget_set_name(App->confirmButton, "cancel_button");
     g_signal_connect(G_OBJECT(App->cancelButton),"clicked",gtk_window_close,App->window);
 
-    //! à faire :  vérifier que l'entry est numeric , ajouter la date
+    //! à faire :  vérifier que l'entry est numeric , ajouter la date , négatif value
 
     compApp->incomeaddwindow = App;
     gtk_widget_show_all(App->window);

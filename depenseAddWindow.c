@@ -1,61 +1,76 @@
 #include "depenseAddWindow.h"
 
-// void handleAddIncomeConfirm(GtkWidget *butt, gpointer data)
-// {
-//     composedWindow *compApp = (composedWindow *)data;
-//     GtkTextBuffer *buffer;
-//     GtkTextIter start, end;
-//     char value[10];
-//     strcpy(value, gtk_entry_get_text(GTK_ENTRY(compApp->incomeaddwindow->valueEntry)));
-//     char *description;
-//     buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(compApp->incomeaddwindow->valueDescriptionEntry));
-//     gtk_text_buffer_get_start_iter(buffer, &start);
-//     gtk_text_buffer_get_end_iter(buffer, &end);
-//     description = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
-//     // description = gtk_entry_get_text(compApp->incomeaddwindow->valueDescriptionEntry);
-//     // strcpy(description,gtk_text_view_get_text(GTK_TEXT_VIEW(compApp->incomeaddwindow->valueDescriptionEntry)));
-//     g_print("value : %s ", value);
-//     g_print("\n desc : %s", description);
-//     g_print(" float value : %f", atof(value));
-//     // g_print("user id : %d",compApp->id);
-//     add_income(atof(value), compApp->incomeaddwindow->selected_type, compApp->id, compApp->calendar_window->date_formated, description);
-//     get_total_depenses_and_income((gpointer)compApp);
-//     char depenses[100];
-//     sprintf(depenses, "Les depenses totales de ce mois \n\n %.2lf €", compApp->total_depenses);
-//     gtk_label_set_markup(GTK_LABEL(compApp->dashboard->dashboard_total_depenses_label), depenses);
-//     char income[100];
-//     sprintf(income, "Le revenue total de ce mois \n\n %.2lf €", compApp->total_income);
-//     gtk_label_set_markup(GTK_LABEL(compApp->dashboard->dashboard_total_income_label), income);
-//     char economy[100];
-//     sprintf(economy, "L'economie de ce mois \n\n %.2lf €", compApp->total_income - compApp->total_depenses);
-//     gtk_label_set_markup(GTK_LABEL(compApp->dashboard->dashboard_economy_label), economy);
+char depenses_type[10][40] = {"Logement", "Vie quotidienne","loisirs","Voyages et transports","Abonnements et téléphone","Automobile / moto","Santé","Alimentation","Vacances et weekend","Animeaux" };
 
-//     //!!!!!!!!!!!!!!!!ADD a dialog to confirm the adding value
 
-//     gtk_window_close(GTK_WINDOW(compApp->incomeaddwindow->window));
-// }
+static void handleDepenseType(GtkWidget *radio,gpointer data){
 
-// static void
-// handleMonthlyType(GtkToggleButton *button, gpointer data)
-// {
-//     incomeAddWindow *App = (incomeAddWindow *)data;
-//     if (gtk_toggle_button_get_active(button))
-//     {
-//         App->selected_type = 1;
-//     }
-//     else
-//     {
-//         App->selected_type = 2;
-//     }
+    composedWindow *compApp = (composedWindow*)data;
+    depenseAddWindow *App;
+    App=compApp->depense_window;
+    const gchar *label = gtk_button_get_label(GTK_BUTTON(radio));
+    g_print("Selected radio button label: %s\n", label);
+    for(int i=0;i<10;i++){
+        if(strcmp(label,depenses_type[i])==0){
+            App->selected_type = i+1;
+        }
+    }
+    g_print("Selected depense type: %d",App->selected_type);
+}
 
-//     g_print("selected_type : %d", App->selected_type);
-// }
+void handleAddDepenseConfirm(GtkWidget *butt, gpointer data)
+{
+    composedWindow *compApp = (composedWindow *)data;
+    GtkTextBuffer *buffer;
+    GtkTextIter start, end;
+    char value[10];
+    strcpy(value, gtk_entry_get_text(GTK_ENTRY(compApp->depense_window->valueEntry)));
+    char *description;
+    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(compApp->depense_window->valueDescriptionEntry));
+    gtk_text_buffer_get_start_iter(buffer, &start);
+    gtk_text_buffer_get_end_iter(buffer, &end);
+    description = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
+    g_print("value : %s ", value);
+    g_print("\n desc : %s", description);
+    g_print(" float value : %f", atof(value));
+    add_depense(atof(value), compApp->depense_window->selected_type, compApp->id, compApp->calendar_window->date_formated, description);
+    get_total_depenses_and_income((gpointer)compApp);
+    char depenses[100];
+    sprintf(depenses, "Les depenses totales de ce mois \n\n %.2lf €", compApp->total_depenses);
+    gtk_label_set_markup(GTK_LABEL(compApp->dashboard->dashboard_total_depenses_label), depenses);
+    char income[100];
+    sprintf(income, "Le revenue total de ce mois \n\n %.2lf €", compApp->total_income);
+    gtk_label_set_markup(GTK_LABEL(compApp->dashboard->dashboard_total_income_label), income);
+    char economy[100];
+    sprintf(economy, "L'economie de ce mois \n\n %.2lf €", compApp->total_income - compApp->total_depenses);
+    gtk_label_set_markup(GTK_LABEL(compApp->dashboard->dashboard_economy_label), economy);
+
+    //!!!!!!!!!!!!!!!!ADD a dialog to confirm the adding value
+
+    gtk_window_close(GTK_WINDOW(compApp->depense_window->window));
+}
+
+static void
+handleMonthlyType(GtkToggleButton *button, gpointer data)
+{
+    incomeAddWindow *App = (incomeAddWindow *)data;
+    if (gtk_toggle_button_get_active(button))
+    {
+        App->selected_type = 1;
+    }
+    else
+    {
+        App->selected_type = 2;
+    }
+
+    g_print("selected_type : %d", App->selected_type);
+}
 
 void create_depense_add_window(GtkWidget *butt, gpointer data)
 {
     composedWindow *compApp = (composedWindow *)data;
     depenseAddWindow *App = g_malloc(sizeof(depenseAddWindow));
-
+    compApp->opened_window = 2;
     gint MAINWINDOWWIDTH = getScreenWidth();
     gint MAINWINDOWHEIGHT = getScreenHeight();
     gint MAINWINDOWBORDERWIDTH = 60;
@@ -73,13 +88,14 @@ void create_depense_add_window(GtkWidget *butt, gpointer data)
     gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(titleBar), TRUE);
     gtk_widget_set_name(titleBar, "titleBar");
     App->selected_type = 1;
+    
     //? vbox
     App->vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 30);
     gtk_container_add(GTK_CONTAINER(App->window), App->vbox);
     gtk_widget_set_name(App->vbox, "income__add__vbox");
 
     //? description box
-    App->descriptionbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    App->descriptionbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_box_pack_start(GTK_BOX(App->vbox), App->descriptionbox, TRUE, TRUE, 0);
     gtk_widget_set_name(App->descriptionbox, "income__add__description__box");
     gtk_widget_set_size_request(App->descriptionbox, MAINWINDOWWIDTH * 0.4, 50);
@@ -89,24 +105,40 @@ void create_depense_add_window(GtkWidget *butt, gpointer data)
     gtk_box_pack_start(GTK_BOX(App->descriptionbox), App->descriptionlabel, TRUE, FALSE, 0);
     gtk_label_set_justify(GTK_LABEL(App->descriptionlabel), GTK_JUSTIFY_CENTER);
 
+    //? type label box
+    App->typelabelbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    gtk_box_pack_start(GTK_BOX(App->vbox), App->typelabelbox, TRUE, TRUE, 0);
+
+    //? type label
+    App->typeLabel = gtk_label_new("Le type du dépense :");
+    gtk_box_pack_start(GTK_BOX(App->typelabelbox), App->typeLabel, TRUE, TRUE, 0);
+
+    //? type scrolled window
+    App->scrolledWindow = gtk_scrolled_window_new(NULL,NULL);
+    gtk_box_pack_start(GTK_BOX(App->vbox),App->scrolledWindow,TRUE,TRUE,0);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(App->scrolledWindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_widget_set_size_request(App->scrolledWindow,100,150);
+
     //? income type box
-    App->income_type_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 40);
-    gtk_box_pack_start(GTK_BOX(App->vbox), App->income_type_box, TRUE, FALSE, 0);
-    gtk_widget_set_halign(App->income_type_box, GTK_ALIGN_CENTER);
+    App->depense_type_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 40);
+    // gtk_box_pack_start(GTK_BOX(App->), App->depense_type_box, TRUE, FALSE, 0);
+    gtk_container_add(GTK_CONTAINER(App->scrolledWindow),App->depense_type_box);
+    gtk_widget_set_halign(App->depense_type_box, GTK_ALIGN_CENTER);
 
-    // //? type label
-    // App->typeLabel = gtk_label_new("Le type du revenue:");
-    // gtk_box_pack_start(GTK_BOX(App->income_type_box), App->typeLabel, TRUE, TRUE, 0);
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    for( int i=0;i<10;i++){
+    if(i==0){
+        App->depensesTypes[i] = gtk_radio_button_new_with_label(NULL,depenses_type[i]);
+        gtk_box_pack_start(GTK_BOX(App->depense_type_box), App->depensesTypes[i], TRUE, TRUE, 0);
+        g_signal_connect(G_OBJECT(App->depensesTypes[i]), "toggled", G_CALLBACK(handleDepenseType), (gpointer)compApp);
+    }else{
+        App->depensesTypes[i] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(App->depensesTypes[0]),depenses_type[i]);
+        gtk_box_pack_start(GTK_BOX(App->depense_type_box), App->depensesTypes[i], TRUE, TRUE, 0);
+        g_signal_connect(G_OBJECT(App->depensesTypes[i]),"toggled",G_CALLBACK(handleDepenseType),(gpointer)compApp);
+    }
+    }
 
-    // //? monthly income radio
-    // App->income_monthly_radio = gtk_radio_button_new_with_label(NULL, "Mansuelle");
-    // gtk_box_pack_start(GTK_BOX(App->income_type_box), App->income_monthly_radio, TRUE, TRUE, 0);
-    // g_signal_connect(G_OBJECT(App->income_monthly_radio), "toggled", G_CALLBACK(handleMonthlyType), (gpointer)App);
-
-    // //? not_ monthly income radio
-    // App->income_not_monthly_radio = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(App->income_monthly_radio), "Non Mansuelle");
-    // gtk_box_pack_start(GTK_BOX(App->income_type_box), App->income_not_monthly_radio, TRUE, TRUE, 0);
-
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //? date box
     App->databox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_pack_start(GTK_BOX(App->vbox), App->databox, FALSE, FALSE, 0);
@@ -132,7 +164,7 @@ void create_depense_add_window(GtkWidget *butt, gpointer data)
     gtk_widget_set_halign(App->valuebox, GTK_ALIGN_CENTER);
 
     //? value label
-    App->valueLabel = gtk_label_new("Le montant du revenue(€) : ");
+    App->valueLabel = gtk_label_new("Le montant du dépense(€) : ");
     gtk_box_pack_start(GTK_BOX(App->valuebox), App->valueLabel, FALSE, FALSE, 0);
     gtk_entry_set_placeholder_text(GTK_ENTRY(App->valuebox), "Ex:2000");
     gtk_widget_set_size_request(App->valueLabel, MAINWINDOWWIDTH * 0.2, 50);
@@ -171,7 +203,7 @@ void create_depense_add_window(GtkWidget *butt, gpointer data)
     App->confirmButton = gtk_button_new_with_label("Valider");
     gtk_box_pack_start(GTK_BOX(App->buttonsbox), App->confirmButton, TRUE, TRUE, 0);
     gtk_widget_set_name(App->confirmButton, "confirm_button");
-    // g_signal_connect(G_OBJECT(App->confirmButton), "clicked", G_CALLBACK(handleAddIncomeConfirm), (gpointer)compApp);
+    g_signal_connect(G_OBJECT(App->confirmButton), "clicked", G_CALLBACK(handleAddDepenseConfirm), (gpointer)compApp);
 
     //? cancel button
     App->cancelButton = gtk_button_new_with_label("Annuler");

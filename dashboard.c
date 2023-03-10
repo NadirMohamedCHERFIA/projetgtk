@@ -15,7 +15,7 @@ static void onCalendarChange(GtkWidget *calendar,gpointer data){
     composedWindow *compApp = (composedWindow*)data;
     guint year, month, day;
     gtk_calendar_get_date(calendar, &year, &month, &day);
-
+    
     sprintf(compApp->date_formated,"%d-%02d",year,month+1);
     sprintf(compApp->calendar_window->date_formated, "%d-%02d-%02d", year, month + 1,day);
 
