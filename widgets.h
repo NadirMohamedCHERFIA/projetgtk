@@ -207,4 +207,36 @@ typedef struct {
     char date_formated[100];
 }calendarWindow;
 
+typedef struct
+{
+    float value;
+    char category[10];
+    char description[1000];
+    char date[20];
+} detail_row;
+
+typedef struct {
+
+    gchar date_string[100];
+    gchar date_formated[100];
+    gint nbr_rows;
+    // char income_details[50][1000];
+
+    detail_row income_details[100];
+    // income_details = malloc(100*sizeof(detail_row));
+    GtkWidget *window;
+    GtkWidget *box;
+    GtkWidget *descriptionBox;
+    GtkWidget *descriptionLabel;
+    GtkWidget *scrolledWindow;
+    GtkWidget *detailsBox;
+    GtkWidget *detailsRowBox;
+    GtkWidget *byDay;
+    GtkWidget *byMonth;
+    GtkWidget *info_row_box[100];
+    GtkWidget *info_row_label[100];
+}incomeDetailsWindow;
+
+
+
 #endif

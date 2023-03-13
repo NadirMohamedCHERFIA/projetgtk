@@ -325,3 +325,60 @@ void add_depense(float value, int type, int user_id, char date[], char *descript
     }
     mysql_close(conn);
 }
+
+void get_user_income_details(gpointer data){
+    composedWindow *compApp = (composedWindow *)data;
+    MYSQL *conn = mysql_init(NULL);
+    char query[1000];
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+    int i=0;
+    g_print("\nDATABASE ID : %d", compApp->id);
+    if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
+    {
+        sprintf(query, "select income_value,income_categories.name, description,income_date from income,income_categories where id_category = income_categories.id AND id_user = %d", compApp->id);
+        if (mysql_query(conn, query))
+        {
+            g_print("ERROR : %d", mysql_errno(conn));
+        }
+        else
+        {
+            res = mysql_use_result(conn);
+            /* output table name */
+            // compApp->income_details_window->income_details = malloc(sizeof(detail_row));
+            while ((row = mysql_fetch_row(res)) != NULL)
+            {   
+                if(row[0]){
+                    compApp->income_details_window->income_details[i].value = atof(row[0]);
+                }else{
+                    compApp->income_details_window->income_details[i].value = 0;
+                }
+                if(row[1]){
+                    strcpy(compApp->income_details_window->income_details[i].category,row[1]);
+                }else{
+                    strcpy(compApp->income_details_window->income_details[i].category,"NULL");
+                }
+                if(row[2]){
+                    strcpy(compApp->income_details_window->income_details[i].description,row[2]);
+                }else{
+                    strcpy(compApp->income_details_window->income_details[i].description, "NULL");
+                }
+                if(row[3]){
+                    strcpy(compApp->income_details_window->income_details[i].date,row[3]);
+                }else{
+                    strcpy(compApp->income_details_window->income_details[i].date, "NULL");
+                }
+                i++;
+                // compApp->income_details_window->income_details = realloc(compApp->income_details_window->income_details[i],i*sizeof(detail_row));
+            }
+        }
+    }
+    else
+    {
+        g_print("ERROR : %d", mysql_errno(conn));
+    }
+    compApp->income_details_window->nbr_rows = i;
+        handle_info_income((gpointer)compApp);
+        mysql_free_result(res);
+        mysql_close(conn);
+    }

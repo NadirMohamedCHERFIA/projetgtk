@@ -7,7 +7,7 @@ void handleBackDashboard(GtkWidget *butt, gpointer data)
     composedWindow *compApp;
     compApp = (composedWindow *)data;
     gtk_window_close(GTK_WINDOW(compApp->dashboard->dashboard_window));
-    gtk_widget_show_all(compApp->App->welcome_vbox_users); 
+    // gtk_widget_show_all(compApp->App->welcome_vbox_users); 
     gtk_widget_show_all(compApp->App->welcome_window);
 }
 
@@ -39,7 +39,9 @@ static void onCalendarChange(GtkWidget *calendar,gpointer data){
     composedWindow *compApp ;
     compApp= (composedWindow *)data;
 
+    incomeDetailsWindow *income_details_window = g_malloc(sizeof(incomeDetailsWindow));
 
+    compApp->income_details_window=income_details_window;
 
     gint MAINWINDOWWIDTH = getScreenWidth();
 
@@ -60,6 +62,7 @@ static void onCalendarChange(GtkWidget *calendar,gpointer data){
     gtk_window_set_position(GTK_WINDOW(App->dashboard_window), GTK_WIN_POS_CENTER);
     gtk_widget_set_name(App->dashboard_window, "dashboard_window");
     gtk_container_set_border_width(GTK_CONTAINER(App->dashboard_window), MAINWINDOWBORDERWIDTH);
+    // g_signal_connect(G_OBJECT(App->dashboard_window),"destroy",gtk_main_quit,NULL);
     GtkWidget *titleBar;
     titleBar = gtk_header_bar_new();
     gtk_header_bar_set_title(GTK_HEADER_BAR(titleBar), "Dashboard");
@@ -67,7 +70,7 @@ static void onCalendarChange(GtkWidget *calendar,gpointer data){
     gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(titleBar), TRUE);
     gtk_widget_set_name(titleBar, "titleBar");
     compApp->dashboard=App;
-    
+
     // get_total_depenses_and_income((gpointer)compApp);
 
     //?dashboard vbox
@@ -117,10 +120,11 @@ static void onCalendarChange(GtkWidget *calendar,gpointer data){
     gtk_box_pack_start(GTK_BOX(App->dashboard_left_vbox), App->dashboard_left_vbox_buttons_vbox, FALSE, TRUE, 0);
 
     //? dashboard configure button
-    App->dashboard_configure_button = gtk_button_new_with_label("Configurer le budget de ce mois");
+    App->dashboard_configure_button = gtk_button_new_with_label("Relevé détailé");
     gtk_box_pack_start(GTK_BOX(App->dashboard_left_vbox),App->dashboard_configure_button,FALSE,TRUE,0);
     gtk_widget_set_size_request(App->dashboard_configure_button, 100, 60);
     gtk_widget_set_name(App->dashboard_configure_button,"configure__button");
+
     //? dashboard show details button
     App->dashboard_show_details_button = gtk_button_new_with_label("Show details");
     gtk_box_pack_start(GTK_BOX(App->dashboard_left_vbox_buttons_vbox), App->dashboard_show_details_button, FALSE, TRUE, 0);
@@ -134,9 +138,6 @@ static void onCalendarChange(GtkWidget *calendar,gpointer data){
     gtk_widget_set_name(App->dashboard_back_button, "dashboard__back_button");
     gtk_widget_set_size_request(App->dashboard_back_button, 100, 60);
     g_signal_connect(G_OBJECT(App->dashboard_back_button), "clicked", G_CALLBACK(handleBackDashboard), (gpointer) compApp);
-
-
-
 
     //! ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -176,7 +177,7 @@ static void onCalendarChange(GtkWidget *calendar,gpointer data){
     gtk_box_pack_start(GTK_BOX(App->dashboard_total_income_vbox), App->dashboard_income_detail_button, FALSE, TRUE, 0);
     gtk_widget_set_name(App->dashboard_income_detail_button,"income__detail");
     gtk_widget_set_size_request(App->dashboard_income_detail_button,100,50);
-
+    g_signal_connect(G_OBJECT(App->dashboard_income_detail_button),"clicked",G_CALLBACK(create_income_details_window),(gpointer)compApp);
 
 
     //? dashboard total depenses box 

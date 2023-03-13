@@ -29,6 +29,6 @@ typedef struct composedWindow
     incomeAddWindow *incomeaddwindow;
     depenseAddWindow *depense_window;
     calendarWindow *calendar_window;
-
+    incomeDetailsWindow *income_details_window;
 } composedWindow;
 #endif

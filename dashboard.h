@@ -8,6 +8,7 @@
 #include "userStruct.h"
 #include "incomeAddWindow.h"
 #include "depenseAddWindow.h"
+#include "incomeDetailsWindow.h"
 
 void handleBackDashboard(GtkWidget *butt,gpointer data);
 
