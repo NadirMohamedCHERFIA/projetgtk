@@ -30,5 +30,6 @@ typedef struct composedWindow
     depenseAddWindow *depense_window;
     calendarWindow *calendar_window;
     incomeDetailsWindow *income_details_window;
+    depenseDetailsWindow *depenses_details_window;
 } composedWindow;
 #endif

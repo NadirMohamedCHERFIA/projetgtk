@@ -9,7 +9,7 @@
 #include "incomeAddWindow.h"
 #include "depenseAddWindow.h"
 #include "incomeDetailsWindow.h"
-
+#include "depenseDetailsWindow.h"
 void handleBackDashboard(GtkWidget *butt,gpointer data);
 
 void create_dashboard(gpointer data);

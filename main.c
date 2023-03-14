@@ -15,10 +15,7 @@ int main(int argc, char *argv[]){
     App->App = welcome;
     gtk_init(&argc, &argv);
     load_css();
-    // if(App->first_load){
-        image_window((gpointer)App);
-        // welcome_window((gpointer)App);
-    // }
+    image_window((gpointer)App);
     gtk_main();
     return 0;
 }

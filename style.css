@@ -20,7 +20,8 @@
 #income_details_window{
   font-weight: 600;
     color: white;
-  background-color: #0465a7;
+  /* background-color: #0465a7; */
+    background-color: #07436b;
 }
 
 #titleBar{
@@ -272,6 +273,12 @@
 #image{
   opacity: 1;
   /* animation: fade 4s linear forwards; */
+}
+
+
+
+#squared__box{
+  border-bottom: 1px solid white;
 }
 
 @keyframes fade{

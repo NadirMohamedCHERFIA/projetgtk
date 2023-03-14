@@ -40,9 +40,11 @@ static void onCalendarChange(GtkWidget *calendar,gpointer data){
     compApp= (composedWindow *)data;
 
     incomeDetailsWindow *income_details_window = g_malloc(sizeof(incomeDetailsWindow));
+    depenseDetailsWindow *depenses_details_window = g_malloc(sizeof(depenseDetailsWindow));
 
     compApp->income_details_window=income_details_window;
-
+    compApp->depenses_details_window = depenses_details_window;
+    
     gint MAINWINDOWWIDTH = getScreenWidth();
 
     gint MAINWINDOWHEIGHT = getScreenHeight();
@@ -186,7 +188,6 @@ static void onCalendarChange(GtkWidget *calendar,gpointer data){
     gtk_widget_set_name(App->dashboard_total_depenses_vbox, "total__depenses__box");
 
     //? total depenses label
-
     App->dashboard_total_depenses_label = gtk_label_new(NULL);
     gtk_box_pack_start(GTK_BOX(App->dashboard_total_depenses_vbox), App->dashboard_total_depenses_label, TRUE, TRUE, 0);
 
@@ -211,9 +212,10 @@ static void onCalendarChange(GtkWidget *calendar,gpointer data){
     gtk_box_pack_start(GTK_BOX(App->dashboard_total_depenses_vbox), App->dashboard_depenses_detail_button, FALSE, TRUE, 0);
     gtk_widget_set_name(App->dashboard_depenses_detail_button, "depenses__detail");
     gtk_widget_set_size_request(App->dashboard_depenses_detail_button,100,50);
-
-    //? dashboard categories scrolled window
-    App->dashboard_categories_scrolled_window = gtk_scrolled_window_new(NULL,NULL);
+    g_signal_connect(G_OBJECT(App->dashboard_depenses_detail_button),"clicked",G_CALLBACK(create_depenses_details_window),(gpointer)compApp);
+    
+        //? dashboard categories scrolled window
+        App->dashboard_categories_scrolled_window = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(App->dashboard_categories_scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     // gtk_container_add(GTK_CONTAINER(App->dashboard_right_vbox),App->dashboard_categories_scrolled_window);
     gtk_box_pack_start(GTK_BOX(App->dashboard_right_vbox),App->dashboard_categories_scrolled_window,TRUE,TRUE,0);

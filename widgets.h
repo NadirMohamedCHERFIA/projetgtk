@@ -235,8 +235,58 @@ typedef struct {
     GtkWidget *byMonth;
     GtkWidget *info_row_box[100];
     GtkWidget *info_row_label[100];
+
+
+    //*************************
+    GtkWidget *headerDesc;
+    GtkWidget *header_valueBox;
+    GtkWidget *header_valueBox_label;
+    GtkWidget *header_categoryBox;
+    GtkWidget *header_categoryBox_label;
+
+    GtkWidget *header_dateBox;
+    GtkWidget *header_dateBox_label;
+
+    GtkWidget *header_descriptionBox;
+    GtkWidget *header_descriptionBox_label;
+
 }incomeDetailsWindow;
 
+typedef struct
+{
 
+    gchar date_string[100];
+    gchar date_formated[100];
+    gint nbr_rows;
+    // char income_details[50][1000];
+
+    detail_row depenses_details[100];
+    // income_details = malloc(100*sizeof(detail_row));
+    GtkWidget *window;
+    GtkWidget *box;
+    GtkWidget *descriptionBox;
+    GtkWidget *descriptionLabel;
+    GtkWidget *scrolledWindow;
+    GtkWidget *detailsBox;
+    GtkWidget *detailsRowBox;
+    GtkWidget *byDay;
+    GtkWidget *byMonth;
+    GtkWidget *info_row_box[100];
+    GtkWidget *info_row_label[100];
+
+    //*************************
+    GtkWidget *headerDesc;
+    GtkWidget *header_valueBox;
+    GtkWidget *header_valueBox_label;
+    GtkWidget *header_categoryBox;
+    GtkWidget *header_categoryBox_label;
+
+    GtkWidget *header_dateBox;
+    GtkWidget *header_dateBox_label;
+
+    GtkWidget *header_descriptionBox;
+    GtkWidget *header_descriptionBox_label;
+
+} depenseDetailsWindow;
 
 #endif

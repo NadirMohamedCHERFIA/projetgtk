@@ -302,7 +302,6 @@ void add_income(float value, int type, int user_id, char date[], char *descripti
 
 void add_depense(float value, int type, int user_id, char date[], char *description)
 {
-    g_print("called");
     MYSQL *conn = mysql_init(NULL);
     char query[1000];
     if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
@@ -336,7 +335,7 @@ void get_user_income_details(gpointer data){
     g_print("\nDATABASE ID : %d", compApp->id);
     if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
     {
-        sprintf(query, "select income_value,income_categories.name, description,income_date from income,income_categories where id_category = income_categories.id AND id_user = %d", compApp->id);
+        sprintf(query, "select income_value,income_categories.name, description,income_date from income,income_categories where id_category = income_categories.id AND id_user = %d and income_date LIKE '%s-__' ORDER BY income_value DESC", compApp->id, compApp->date_formated);
         if (mysql_query(conn, query))
         {
             g_print("ERROR : %d", mysql_errno(conn));
@@ -354,7 +353,12 @@ void get_user_income_details(gpointer data){
                     compApp->income_details_window->income_details[i].value = 0;
                 }
                 if(row[1]){
-                    strcpy(compApp->income_details_window->income_details[i].category,row[1]);
+                    if(strcmp(row[1],"monthly")==0){
+                        strcpy(compApp->income_details_window->income_details[i].category,"Mansuelle");
+                    }
+                    else{
+                        strcpy(compApp->income_details_window->income_details[i].category, "Non mansuelle");
+                    }
                 }else{
                     strcpy(compApp->income_details_window->income_details[i].category,"NULL");
                 }
@@ -369,7 +373,6 @@ void get_user_income_details(gpointer data){
                     strcpy(compApp->income_details_window->income_details[i].date, "NULL");
                 }
                 i++;
-                // compApp->income_details_window->income_details = realloc(compApp->income_details_window->income_details[i],i*sizeof(detail_row));
             }
         }
     }
@@ -379,6 +382,77 @@ void get_user_income_details(gpointer data){
     }
     compApp->income_details_window->nbr_rows = i;
         handle_info_income((gpointer)compApp);
+        mysql_free_result(res);
+        mysql_close(conn);
+    }
+
+void get_user_depenses_details(gpointer data)
+    {
+        composedWindow *compApp = (composedWindow *)data;
+        MYSQL *conn = mysql_init(NULL);
+        char query[1000];
+        MYSQL_RES *res;
+        MYSQL_ROW row;
+        int i = 0;
+        if (mysql_real_connect(conn, DBSRV, DBUID, DBPWD, DBNAME, 0, NULL, 0))
+        {
+        sprintf(query, "select depense_value,depenses_categories.category_name, description,depense_date from depenses,depenses_categories where category_id = depenses_categories.id AND user_id =%d and depense_date LIKE '%s-__' ORDER BY depense_value DESC", compApp->id,compApp->date_formated);
+        if (mysql_query(conn, query))
+        {
+            g_print("ERROR : %d", mysql_errno(conn));
+        }
+        else
+        {
+            res = mysql_use_result(conn);
+            while ((row = mysql_fetch_row(res)) != NULL)
+            {
+                g_print("%s",row[1]);
+                if (row[0])
+                {
+                    compApp->depenses_details_window->depenses_details[i].value = atof(row[0]);
+                }
+                else
+                {
+                    compApp->depenses_details_window->depenses_details[i].value = 0;
+                }
+                if (row[1])
+                {
+                    strcpy(compApp->depenses_details_window->depenses_details[i].category, row[1]);
+                }
+                else
+                {
+                    strcpy(compApp->depenses_details_window->depenses_details[i].category, "NULL");
+                }
+                if (row[2])
+                {
+                    if (strlen(row[2])==0){
+                        strcpy(compApp->depenses_details_window->depenses_details[i].description,"Aucun");
+                    }else{
+                        strcpy(compApp->depenses_details_window->depenses_details[i].description, row[2]);
+                    }
+                }
+                else
+                {
+                    strcpy(compApp->depenses_details_window->depenses_details[i].description, "NULL");
+                }
+                if (row[3])
+                {
+                    strcpy(compApp->depenses_details_window->depenses_details[i].date, row[3]);
+                }
+                else
+                {
+                    strcpy(compApp->depenses_details_window->depenses_details[i].date, "NULL");
+                }
+                i++;
+            }
+        }
+        }
+        else
+        {
+        g_print("ERROR : %d", mysql_errno(conn));
+        }
+        compApp->depenses_details_window->nbr_rows = i;
+        handle_info_depenses((gpointer)compApp);
         mysql_free_result(res);
         mysql_close(conn);
     }
